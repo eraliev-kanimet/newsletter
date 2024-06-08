@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\Filament;
 
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;

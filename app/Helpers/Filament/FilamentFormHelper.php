@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\Filament;
 
 use Closure;
 use Filament\Forms\Components\CheckboxList;
