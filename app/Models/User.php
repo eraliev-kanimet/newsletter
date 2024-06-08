@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\Models\UserTrait;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -54,15 +53,5 @@ class User extends Authenticatable implements FilamentUser
                 $user->roles = convertArrayToIntegers($user->roles);
             }
         });
-    }
-
-    public function receivers(): HasMany
-    {
-        return $this->hasMany(Receiver::class);
-    }
-
-    public function messages(): HasMany
-    {
-        return $this->hasMany(Message::class);
     }
 }
