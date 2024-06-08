@@ -137,4 +137,12 @@ return [
     'data' => 'Data',
     'subject' => 'Subject',
     'text' => 'Text',
+    'message' => 'Message',
+    'when' => 'When',
+    'receivers' => 'Receivers',
+    'pending' => 'Pending',
+    'in_progress' => 'In progress',
+    'completed' => 'Completed',
+    'failed' => 'Failed',
+    'cancelled' => 'Cancelled',
 ];

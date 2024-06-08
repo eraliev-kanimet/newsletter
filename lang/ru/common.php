@@ -137,4 +137,12 @@ return [
     'data' => 'Данные',
     'subject' => 'Тема',
     'text' => 'Текст',
+    'message' => 'Сообщение',
+    'when' => 'Когда',
+    'receivers' => 'Получатели',
+    'pending' => 'В ожидании',
+    'in_progress' => 'В процессе',
+    'completed' => 'Завершен',
+    'failed' => 'Не удалось',
+    'cancelled' => 'Отменено',
 ];
