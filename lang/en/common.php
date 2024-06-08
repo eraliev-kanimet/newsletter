@@ -145,4 +145,5 @@ return [
     'completed' => 'Completed',
     'failed' => 'Failed',
     'cancelled' => 'Cancelled',
+    'restart' => 'Restart',
 ];
