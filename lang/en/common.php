@@ -135,4 +135,6 @@ return [
     'create_attribute' => 'Create attribute',
     'edit_attribute' => 'Edit attribute',
     'data' => 'Data',
+    'subject' => 'Subject',
+    'text' => 'Text',
 ];

@@ -135,4 +135,6 @@ return [
     'create_attribute' => 'Создать атрибут',
     'edit_attribute' => 'Редактировать атрибут',
     'data' => 'Данные',
+    'subject' => 'Тема',
+    'text' => 'Текст',
 ];

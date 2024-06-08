@@ -33,8 +33,11 @@ class ReceiverResource extends Resource
                     ->label(__('common.active'))
                     ->alignCenter()
                     ->boolean(),
+                $helper->text('user.name')
+                    ->width(220)
+                    ->label(__('common.owner')),
                 $helper->text('email')
-                    ->width(250)
+                    ->width(220)
                     ->label(__('common.email')),
                 $helper->text('data')
                     ->label(__('common.data'))

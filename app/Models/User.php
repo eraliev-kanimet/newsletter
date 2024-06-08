@@ -60,4 +60,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Receiver::class);
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
 }
