@@ -134,4 +134,5 @@ return [
     'store_access' => 'Доступ к магазинам',
     'create_attribute' => 'Создать атрибут',
     'edit_attribute' => 'Редактировать атрибут',
+    'data' => 'Данные',
 ];

@@ -9,6 +9,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
@@ -118,5 +119,10 @@ class FilamentFormHelper
         }
 
         return $field;
+    }
+
+    public function keyValue(string $model): KeyValue
+    {
+        return KeyValue::make($model);
     }
 }

@@ -134,4 +134,5 @@ return [
     'store_access' => 'Store access',
     'create_attribute' => 'Create attribute',
     'edit_attribute' => 'Edit attribute',
+    'data' => 'Data',
 ];
