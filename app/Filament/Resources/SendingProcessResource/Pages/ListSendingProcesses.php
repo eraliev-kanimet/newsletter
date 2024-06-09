@@ -4,7 +4,7 @@ namespace App\Filament\Resources\SendingProcessResource\Pages;
 
 use App\Enums\SendingProcessStatus as Status;
 use App\Filament\Resources\SendingProcessResource;
-use App\Filament\Resources\SendingProcessResource\SendingProcessResourceSchema;
+use App\Filament\Resources\SendingProcessResource\Schemas\SendingProcessResourceInfo;
 use App\Models\SendingProcess;
 use Filament\Actions;
 use Filament\Infolists\Infolist;
@@ -19,8 +19,7 @@ class ListSendingProcesses extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
-                ->mutateFormDataUsing(SendingProcessResourceSchema::modifyBeforeCreate()),
+            Actions\CreateAction::make(),
         ];
     }
 
@@ -121,7 +120,7 @@ class ListSendingProcesses extends ListRecords
 
     public function infolist(Infolist $infolist): Infolist
     {
-        return $infolist->schema(SendingProcessResourceSchema::info());
+        return $infolist->schema(SendingProcessResourceInfo::info());
     }
 
     public function changeStatusAction(Status $status, array $array): callable

@@ -13,19 +13,21 @@ class SendingProcess extends Model
 
     protected $fillable = [
         'user_id',
-        'message_id',
         'status',
         'when',
+        'message',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'message' => 'array',
+        ];
+    }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function message(): BelongsTo
-    {
-        return $this->belongsTo(Message::class);
     }
 
     public function receivers(): BelongsToMany

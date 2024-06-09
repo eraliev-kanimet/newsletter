@@ -41,7 +41,7 @@ class MessageSeeder extends Seeder
         Message::create([
             'user_id' => $user_id,
             'subject' => fake()->sentence(),
-            'message' => $message,
+            'data' => $message,
         ]);
     }
 }

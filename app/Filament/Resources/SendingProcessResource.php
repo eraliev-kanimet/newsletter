@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SendingProcessResource\Pages;
-use App\Filament\Resources\SendingProcessResource\SendingProcessResourceSchema;
+use App\Filament\Resources\SendingProcessResource\Schemas\SendingProcessResourceForm;
 use App\Models\SendingProcess;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -36,7 +36,7 @@ class SendingProcessResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(SendingProcessResourceSchema::form())
+            ->schema(SendingProcessResourceForm::form())
             ->columns(1);
     }
 
@@ -44,6 +44,8 @@ class SendingProcessResource extends Resource
     {
         return [
             'index' => Pages\ListSendingProcesses::route('/'),
+            'create' => Pages\CreateSendingProcess::route('/create'),
+            'edit' => Pages\EditSendingProcess::route('/{record}/edit'),
         ];
     }
 }

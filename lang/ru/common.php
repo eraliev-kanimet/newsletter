@@ -155,4 +155,6 @@ return [
     'yes' => 'Да',
     'no' => 'Нет',
     'deleted' => 'Удалено',
+    'create_sending_process' => 'Создать процесс отправки',
+    'edit_sending_process' => 'Редактировать процесс отправки',
 ];

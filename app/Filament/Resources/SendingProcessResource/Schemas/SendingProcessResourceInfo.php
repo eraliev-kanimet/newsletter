@@ -1,56 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\SendingProcessResource;
+namespace App\Filament\Resources\SendingProcessResource\Schemas;
 
 use App\Enums\SendingProcessStatus as Status;
-use App\Models\SendingProcess;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 
-class SendingProcessResourceSchema
+class SendingProcessResourceInfo
 {
-    public static function form(): array
-    {
-        $helper = filamentFormHelper();
-
-        $now = now();
-
-        $disabled = function (?SendingProcess $record) {
-            return !is_null($record) && $record->status != 0;
-        };
-
-        $query = fn(Builder $query) => $query->where('user_id', Auth::user()->id);
-
-        return [
-            $helper->select('message_id')
-                ->disabled($disabled)
-                ->label(__('common.message'))
-                ->relationship('message', 'subject', $query),
-            $helper->dateTime('when')
-                ->disabled($disabled)
-                ->label(__('common.when'))
-                ->default($now->minute(15))
-                ->minDate($now),
-            $helper->checkbox('receivers')
-                ->disabled($disabled)
-                ->label(__('common.receivers'))
-                ->relationship(titleAttribute: 'email', modifyQueryUsing: $query)
-                ->required()
-                ->searchable()
-                ->bulkToggleable()
-                ->columns(),
-        ];
-    }
-
-    public static function modifyBeforeCreate(): callable
-    {
-        return function (array $data): array {
-            $data['user_id'] = Auth::user()->id;
-
-            return $data;
-        };
-    }
-
     public static function info(): array
     {
         $helper = filamentInfoHelper();
@@ -84,10 +39,10 @@ class SendingProcessResourceSchema
             $helper->textEntry('message.subject')
                 ->label(__('common.subject'))
                 ->columnSpanFull(),
-            $helper->textEntry('message.message.text')
+            $helper->textEntry('message.text')
                 ->label(__('common.text'))
                 ->columnSpanFull(),
-            $helper->textEntry('message.message.html')
+            $helper->textEntry('message.html')
                 ->html()
                 ->label('HTML')
                 ->columnSpanFull(),

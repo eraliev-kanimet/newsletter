@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('sending_processes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('message_id')->constrained()->cascadeOnDelete();
             $table->integer('status')->default(0);
             $table->dateTime('when');
+            $table->json('message');
             $table->softDeletes();
             $table->timestamps();
         });

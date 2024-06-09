@@ -22,9 +22,6 @@ class SendingProcessSeeder extends Seeder
 
     protected function createAll(int $user_id): void
     {
-        $messages = Message::pluck('id')->toArray();
-        $count1 = count($messages) - 1;
-
         $status = SendingProcessStatus::values();
 
         unset($status[1]);
@@ -34,15 +31,21 @@ class SendingProcessSeeder extends Seeder
         $count2 = count($status) - 1;
 
         for ($i = 0; $i < 20; $i++) {
-            $this->create($user_id, $messages[rand(0, $count1)], $status[rand(0, $count2)]);
+            $this->create($user_id, $status[rand(0, $count2)]);
         }
     }
 
-    protected function create(int $user_id, int $message_id, int $status): void
+    protected function create(int $user_id, int $status): void
     {
+        $message = Message::inRandomOrder()->limit(1)->first();
+
         $process = SendingProcess::create([
             'user_id' => $user_id,
-            'message_id' => $message_id,
+            'message' => [
+                'subject' => $message->subject,
+                'text' => $message->data['text'] ?? '',
+                'html' => $message->data['html'] ?? '',
+            ],
             'status' => $status,
             'when' => now()->minute(rand(120, 300))
         ]);
