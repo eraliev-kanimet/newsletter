@@ -14,6 +14,16 @@ class SendingProcessResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('common.sending_processes');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('common.sending_processes');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -146,4 +146,10 @@ return [
     'failed' => 'Failed',
     'cancelled' => 'Cancelled',
     'restart' => 'Restart',
+    'messages' => 'Messages',
+    'create_message' => 'Create message',
+    'edit_message' => 'Edit message',
+    'sending_processes' => 'Sending Processes',
+    'create_receiver' => 'Create receiver',
+    'edit_receiver' => 'Edit receiver',
 ];

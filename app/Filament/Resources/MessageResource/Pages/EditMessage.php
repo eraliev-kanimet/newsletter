@@ -10,6 +10,11 @@ class EditMessage extends EditRecord
 {
     protected static string $resource = MessageResource::class;
 
+    public function getTitle(): string
+    {
+        return __('common.edit_message');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

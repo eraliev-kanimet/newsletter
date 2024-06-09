@@ -146,4 +146,10 @@ return [
     'failed' => 'Не удалось',
     'cancelled' => 'Отменено',
     'restart' => 'Перезапустить',
+    'messages' => 'Сообщения',
+    'create_message' => 'Создать сообщение',
+    'edit_message' => 'Редактировать сообщение',
+    'sending_processes' => 'Процессы отправки',
+    'create_receiver' => 'Создать получатель',
+    'edit_receiver' => 'Редактировать получатель',
 ];

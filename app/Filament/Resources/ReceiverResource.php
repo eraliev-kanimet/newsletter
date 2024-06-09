@@ -15,6 +15,16 @@ class ReceiverResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('common.receivers');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('common.receivers');
+    }
+
     public static function form(Form $form): Form
     {
         return parent::form($form)

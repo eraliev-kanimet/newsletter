@@ -2,10 +2,13 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\LanguageMiddleware;
 use Exception;
+use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -29,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -53,9 +56,29 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                LanguageMiddleware::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    public function boot(): void
+    {
+        Filament::serving(function () {
+            $current = session('locale', config('app.fallback_locale'));
+            $locales = [];
+
+            foreach (config('app.locales') as $locale => $name) {
+                if ($current != $locale) {
+                    $locales[] = MenuItem::make()
+                        ->label($name)
+                        ->url(route('set.locale', $locale))
+                        ->icon('heroicon-m-language');
+                }
+            }
+
+            Filament::registerUserMenuItems($locales);
+        });
     }
 }

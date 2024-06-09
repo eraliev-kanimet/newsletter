@@ -57,6 +57,7 @@ class SendingProcessResourceSchema
 
         return [
             $helper->textEntry('status')
+                ->label(__('common.status'))
                 ->formatStateUsing(fn($state) => Status::from($state)->t())
                 ->badge()
                 ->color(fn(int $state): string => match ($state) {
