@@ -25,6 +25,7 @@ class SendingProcessResourceForm
                 ->options(Message::whereUserId($userId)->pluck('subject', 'id'))
                 ->hidden(fn(?SendingProcess $record) => $record),
             $helper->grid(MessageResourceForm::form('text', 'html', 'message.'), 1)
+                ->disabled($isDisabled)
                 ->hidden(fn(Get $get) => !is_null($get('message_id'))),
             $helper->dateTime('when')
                 ->disabled($isDisabled)

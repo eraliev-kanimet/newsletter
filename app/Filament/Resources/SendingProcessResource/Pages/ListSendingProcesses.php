@@ -67,21 +67,23 @@ class ListSendingProcesses extends ListRecords
                     ->hidden(fn(SendingProcess $record) => $record->status != $pending),
                 $helper->viewAction()
                     ->hidden(fn(SendingProcess $record) => $record->status == $pending),
-                $helper->deleteAction(),
-                $helper->restoreAction(),
-                $helper->forceDeleteAction(),
-                $helper->action('cancelAction')
-                    ->label(__('common.cancel'))
-                    ->color('danger')
-                    ->icon('heroicon-o-x-mark')
-                    ->hidden(fn(SendingProcess $record) => $record->status != $pending || $record->trashed())
-                    ->action($this->changeStatusAction(Status::cancelled, [$pending])),
-                $helper->action('restartAction')
-                    ->label(__('common.restart'))
-                    ->color('success')
-                    ->icon('heroicon-o-arrow-path')
-                    ->hidden(fn(SendingProcess $record) => !in_array($record->status, $restart) || $record->trashed())
-                    ->action($this->changeStatusAction(Status::pending, $restart)),
+                $helper->actionGroup([
+                    $helper->deleteAction(),
+                    $helper->restoreAction(),
+                    $helper->forceDeleteAction(),
+                    $helper->action('cancelAction')
+                        ->label(__('common.cancel'))
+                        ->color('danger')
+                        ->icon('heroicon-o-x-mark')
+                        ->hidden(fn(SendingProcess $record) => $record->status != $pending || $record->trashed())
+                        ->action($this->changeStatusAction(Status::cancelled, [$pending])),
+                    $helper->action('restartAction')
+                        ->label(__('common.restart'))
+                        ->color('success')
+                        ->icon('heroicon-o-arrow-path')
+                        ->hidden(fn(SendingProcess $record) => !in_array($record->status, $restart) || $record->trashed())
+                        ->action($this->changeStatusAction(Status::pending, $restart)),
+                ])
             ])
             ->bulkActions([
                 $helper->deleteBulkAction(),

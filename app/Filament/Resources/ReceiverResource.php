@@ -13,7 +13,7 @@ class ReceiverResource extends Resource
 {
     protected static ?string $model = Receiver::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-at-symbol';
 
     public static function getNavigationLabel(): string
     {

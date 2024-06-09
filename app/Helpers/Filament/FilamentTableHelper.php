@@ -4,6 +4,7 @@ namespace App\Helpers\Filament;
 
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -80,6 +81,11 @@ class FilamentTableHelper
     public function restoreAction(): RestoreAction
     {
         return RestoreAction::make();
+    }
+
+    public function actionGroup(array $actions): ActionGroup
+    {
+        return ActionGroup::make($actions);
     }
 
     public function bulkAction(string $name): BulkAction

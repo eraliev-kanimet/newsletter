@@ -14,7 +14,7 @@ class SendingProcessResource extends Resource
 {
     protected static ?string $model = SendingProcess::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
 
     public static function getEloquentQuery(): Builder
     {
