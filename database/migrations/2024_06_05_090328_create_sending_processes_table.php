@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('message_id')->constrained()->cascadeOnDelete();
             $table->integer('status')->default(0);
             $table->dateTime('when');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

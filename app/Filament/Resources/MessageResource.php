@@ -8,12 +8,21 @@ use App\Models\Message;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MessageResource extends Resource
 {
     protected static ?string $model = Message::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-envelope';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
+    }
 
     public static function getNavigationLabel(): string
     {
@@ -43,11 +52,16 @@ class MessageResource extends Resource
                     ->label(__('common.owner')),
                 $helper->text('subject')
                     ->label(__('common.subject')),
+                $helper->deleted(),
             ])
             ->actions([
                 $helper->editAction(),
+                $helper->deleteAction(),
+                $helper->restoreAction(),
+                $helper->forceDeleteAction(),
             ])
             ->bulkActions([
+                $helper->deleteBulkAction(),
                 $helper->deleteBulkAction(),
             ]);
     }

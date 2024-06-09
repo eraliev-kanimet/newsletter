@@ -30,6 +30,7 @@ class ListUsers extends ListRecords
                     ->label(__('common.active'))
                     ->alignCenter()
                     ->boolean(),
+                $helper->deleted(),
             ])
             ->actions([
                 $helper->editAction(),

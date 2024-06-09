@@ -152,4 +152,7 @@ return [
     'sending_processes' => 'Sending Processes',
     'create_receiver' => 'Create receiver',
     'edit_receiver' => 'Edit receiver',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'deleted' => 'Deleted',
 ];

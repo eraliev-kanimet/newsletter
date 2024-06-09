@@ -152,4 +152,7 @@ return [
     'sending_processes' => 'Процессы отправки',
     'create_receiver' => 'Создать получатель',
     'edit_receiver' => 'Редактировать получатель',
+    'yes' => 'Да',
+    'no' => 'Нет',
+    'deleted' => 'Удалено',
 ];

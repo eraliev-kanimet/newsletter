@@ -2,9 +2,9 @@
 
 function fakeContent(): string
 {
-    $html = fakeH2() . '<br>' . fakeParagraph();
+    $html = fakeH2() . fakeParagraph();
 
-    $html .= fakeH2() . '<br>' . fakeList() . fakeParagraph();
+    $html .= fakeH2() . fakeList() . fakeParagraph();
 
     return $html;
 }
