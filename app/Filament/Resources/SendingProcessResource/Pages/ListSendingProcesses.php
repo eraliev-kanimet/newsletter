@@ -10,6 +10,7 @@ use Filament\Actions;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListSendingProcesses extends ListRecords
 {
@@ -36,6 +37,7 @@ class ListSendingProcesses extends ListRecords
         $pending = Status::pending->value;
 
         return $table
+            ->selectable()
             ->columns([
                 $helper->text('user.name')
                     ->label(__('common.owner')),
@@ -80,6 +82,36 @@ class ListSendingProcesses extends ListRecords
             ])
             ->bulkActions([
                 $helper->deleteBulkAction(),
+                $helper->bulkAction('restart')
+                    ->label(__('common.restart'))
+                    ->icon('heroicon-o-arrow-path')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->deselectRecordsAfterCompletion()
+                    ->action(function (Collection $selectedRecords) use ($restart) {
+                        $selectedRecords = $selectedRecords->whereIn('status', $restart);
+
+                        if ($selectedRecords->isNotEmpty()) {
+                            $selectedRecords
+                                ->toQuery()
+                                ->update(['status' => Status::pending->value]);
+                        }
+                    }),
+                $helper->bulkAction('cancel')
+                    ->label(__('common.cancel'))
+                    ->icon('heroicon-o-x-mark')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->deselectRecordsAfterCompletion()
+                    ->action(function (Collection $selectedRecords) {
+                        $selectedRecords = $selectedRecords->where('status', Status::pending->value);
+
+                        if ($selectedRecords->isNotEmpty()) {
+                            $selectedRecords
+                                ->toQuery()
+                                ->update(['status' => Status::cancelled->value]);
+                        }
+                    }),
             ]);
     }
 

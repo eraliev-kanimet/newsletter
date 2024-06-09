@@ -91,6 +91,12 @@ class SendingProcessResourceSchema
                 ->html()
                 ->label('HTML')
                 ->columnSpanFull(),
+            $helper->repeatableEntry('receivers')
+                ->schema([
+                    $helper->textEntry('email')
+                ])
+                ->columnSpanFull()
+                ->grid()
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Helpers\Filament;
 
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -52,6 +53,11 @@ class FilamentTableHelper
     public function deleteAction(): DeleteAction
     {
         return DeleteAction::make();
+    }
+
+    public function bulkAction(string $name): BulkAction
+    {
+        return BulkAction::make($name);
     }
 
     public function deleteBulkAction(): DeleteBulkAction
