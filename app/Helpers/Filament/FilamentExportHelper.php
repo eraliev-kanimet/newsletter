@@ -10,4 +10,9 @@ class FilamentExportHelper
     {
         return ExportColumn::make($name);
     }
+
+    public function columnTernary(string $name): ExportColumn
+    {
+        return $this->column($name)->formatStateUsing(fn(int $state) => $state ? __('common.yes') : __('common.no'));
+    }
 }

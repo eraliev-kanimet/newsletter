@@ -163,4 +163,5 @@ return [
     'inactive' => 'Inactive',
     'export_users' => 'Export users',
     '+users' => 'users',
+    'export_receivers' => 'Export receivers',
 ];

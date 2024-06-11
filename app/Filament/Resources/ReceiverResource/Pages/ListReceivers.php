@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\ReceiverResource\Pages;
 
+use App\Filament\Exports\ReceiverExporter;
 use App\Filament\Resources\ReceiverResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListReceivers extends ListRecords
@@ -12,8 +12,13 @@ class ListReceivers extends ListRecords
 
     protected function getHeaderActions(): array
     {
+        $helper = filamentActionHelper();
+
         return [
-            Actions\CreateAction::make(),
+            $helper->exportAction(ReceiverExporter::class)
+                ->label(__('common.export_receivers'))
+                ->pluralModelLabel(__('common.+receivers')),
+            $helper->createAction(),
         ];
     }
 }
