@@ -7,7 +7,6 @@ use App\Filament\Resources\MessageResource\Pages;
 use App\Models\Message;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -39,42 +38,6 @@ class MessageResource extends Resource
         return $form
             ->schema(MessageResourceForm::form())
             ->columns(1);
-    }
-
-    public static function table(Table $table): Table
-    {
-        $helper = filamentTableHelper();
-        $action = filamentTableActionHelper();
-
-        return $table
-            ->modifyQueryUsing(fn(Builder $query) => $query->with(['user']))
-            ->columns([
-                $helper->text('user.name')
-                    ->width(250)
-                    ->label(__('common.author')),
-                $helper->text('subject')
-                    ->label(__('common.subject'))
-                    ->searchable(),
-                $helper->deleted(),
-                $helper->created()
-                    ->sortable(),
-                $helper->updated()
-                    ->sortable(),
-            ])
-            ->filters([
-                $helper->authorSelectFilter('user'),
-                $helper->trashedFilter(),
-            ])
-            ->actions([
-                $action->editAction(),
-                $action->deleteAction(),
-                $action->restoreAction(),
-                $action->forceDeleteAction(),
-            ])
-            ->bulkActions([
-                $action->deleteBulkAction(),
-                $action->deleteBulkAction(),
-            ]);
     }
 
     public static function getPages(): array

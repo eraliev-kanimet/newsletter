@@ -7,8 +7,6 @@ use App\Filament\Resources\ReceiverResource\ReceiverResourceForm;
 use App\Models\Receiver;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class ReceiverResource extends Resource
 {
@@ -31,55 +29,6 @@ class ReceiverResource extends Resource
         return parent::form($form)
             ->schema(ReceiverResourceForm::form())
             ->columns(1);
-    }
-
-    public static function table(Table $table): Table
-    {
-        $helper = filamentTableHelper();
-        $action = filamentTableActionHelper();
-
-        return $table
-            ->modifyQueryUsing(fn(Builder $query) => $query->with(['user']))
-            ->columns([
-                $helper->icon('is_active')
-                    ->width(85)
-                    ->label(__('common.active'))
-                    ->alignCenter()
-                    ->boolean(),
-                $helper->text('user.name')
-                    ->width(220)
-                    ->label(__('common.author')),
-                $helper->text('email')
-                    ->width(220)
-                    ->searchable()
-                    ->label(__('common.email')),
-                $helper->text('data')
-                    ->hidden()
-                    ->label(__('common.data'))
-                    ->formatStateUsing(function (Receiver $receiver) {
-                        $text = '';
-
-                        foreach ($receiver->data as $key => $value) {
-                            $text .= __("common.$key") . ': ' . $value . ', ';
-                        }
-
-                        return trim($text, ', ');
-                    }),
-                $helper->created()
-                    ->sortable(),
-                $helper->updated()
-                    ->sortable(),
-            ])
-            ->filters([
-                $helper->authorSelectFilter('user'),
-                $helper->isActiveFilter(),
-            ])
-            ->actions([
-                $action->editAction(),
-            ])
-            ->bulkActions([
-                $action->deleteBulkAction(),
-            ]);
     }
 
     public static function getPages(): array
