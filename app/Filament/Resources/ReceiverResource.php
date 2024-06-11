@@ -8,6 +8,7 @@ use App\Models\Receiver;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReceiverResource extends Resource
 {
@@ -37,6 +38,7 @@ class ReceiverResource extends Resource
         $helper = filamentTableHelper();
 
         return $table
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['user']))
             ->columns([
                 $helper->icon('is_active')
                     ->width(85)
@@ -68,9 +70,7 @@ class ReceiverResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                $helper->selectFilter('user')
-                    ->relationship('user', 'name')
-                    ->label(__('common.author')),
+                $helper->authorSelectFilter('user'),
                 $helper->isActiveFilter(),
             ])
             ->actions([

@@ -46,6 +46,7 @@ class MessageResource extends Resource
         $helper = filamentTableHelper();
 
         return $table
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['user']))
             ->columns([
                 $helper->text('user.name')
                     ->width(250)
@@ -60,9 +61,7 @@ class MessageResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                $helper->selectFilter('user')
-                    ->relationship('user', 'name')
-                    ->label(__('common.author')),
+                $helper->authorSelectFilter('user'),
                 $helper->trashedFilter(),
             ])
             ->actions([

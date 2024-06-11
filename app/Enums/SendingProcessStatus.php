@@ -15,6 +15,17 @@ enum SendingProcessStatus: int
         return __('common.' . $this->name);
     }
 
+    public static function options(): array
+    {
+        $array = [];
+
+        foreach (self::cases() as $case) {
+            $array[$case->value] = $case->t();
+        }
+
+        return $array;
+    }
+
     public static function values(): array
     {
         $array = [];

@@ -134,6 +134,13 @@ class FilamentTableHelper
         }
     }
 
+    public function authorSelectFilter(string $name, string $titleAttribute = 'name'): SelectFilter
+    {
+        return $this->selectFilter($name)
+            ->relationship($name, $titleAttribute)
+            ->label(__('common.author'));
+    }
+
     public function isActiveFilter(): TernaryFilter
     {
         return $this->ternaryFilter('is_active')
