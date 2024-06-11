@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
-use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Table;
 
@@ -19,6 +18,7 @@ class ListUsers extends ListRecords
     public function table(Table $table): Table
     {
         $helper = filamentTableHelper();
+        $action = filamentTableActionHelper();
 
         return $table
             ->columns([
@@ -33,14 +33,16 @@ class ListUsers extends ListRecords
                 $helper->deleted(),
             ])
             ->actions([
-                $helper->editAction(),
+                $action->editAction(),
             ]);
     }
 
     protected function getHeaderActions(): array
     {
+        $helper = filamentActionHelper();
+
         return [
-            CreateAction::make()
+            $helper->createAction()
                 ->label(__('common.create_user')),
         ];
     }

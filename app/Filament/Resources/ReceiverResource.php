@@ -36,6 +36,7 @@ class ReceiverResource extends Resource
     public static function table(Table $table): Table
     {
         $helper = filamentTableHelper();
+        $action = filamentTableActionHelper();
 
         return $table
             ->modifyQueryUsing(fn(Builder $query) => $query->with(['user']))
@@ -74,10 +75,10 @@ class ReceiverResource extends Resource
                 $helper->isActiveFilter(),
             ])
             ->actions([
-                $helper->editAction(),
+                $action->editAction(),
             ])
             ->bulkActions([
-                $helper->deleteBulkAction(),
+                $action->deleteBulkAction(),
             ]);
     }
 

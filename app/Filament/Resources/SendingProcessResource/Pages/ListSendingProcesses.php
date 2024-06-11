@@ -5,7 +5,7 @@ namespace App\Filament\Resources\SendingProcessResource\Pages;
 use App\Enums\SendingProcessStatus as Status;
 use App\Filament\Resources\SendingProcessResource;
 use App\Filament\Resources\SendingProcessResource\Schemas\SendingProcessResourceInfo;
-use App\Helpers\Filament\FilamentTableHelper;
+use App\Helpers\Filament\FilamentTableActionHelper;
 use App\Models\SendingProcess;
 use Filament\Actions;
 use Filament\Infolists\Infolist;
@@ -30,6 +30,7 @@ class ListSendingProcesses extends ListRecords
     public function table(Table $table): Table
     {
         $helper = filamentTableHelper();
+        $action = filamentTableActionHelper();
 
         $restart = [
             Status::completed->value,
@@ -82,30 +83,30 @@ class ListSendingProcesses extends ListRecords
                 $helper->trashedFilter(),
             ])
             ->actions([
-                $helper->editAction()
+                $action->editAction()
                     ->hidden(fn(SendingProcess $record) => $record->status != $pending),
-                $helper->viewAction()
+                $action->viewAction()
                     ->hidden(fn(SendingProcess $record) => $record->status == $pending),
-                $helper->actionGroup([
-                    $helper->deleteAction(),
-                    $helper->restoreAction(),
-                    $helper->forceDeleteAction(),
-                    $this->customAction('cancel', $helper, Status::cancelled, [$pending])
+                $action->actionGroup([
+                    $action->deleteAction(),
+                    $action->restoreAction(),
+                    $action->forceDeleteAction(),
+                    $this->customAction('cancel', $action, Status::cancelled, [$pending])
                         ->color('danger')
                         ->icon('heroicon-o-x-mark')
                         ->hidden(fn(SendingProcess $record) => $record->status != $pending || $record->trashed()),
-                    $this->customAction('restart', $helper, Status::pending, $restart)
+                    $this->customAction('restart', $action, Status::pending, $restart)
                         ->color('success')
                         ->icon('heroicon-o-arrow-path')
                         ->hidden(fn(SendingProcess $record) => !in_array($record->status, $restart) || $record->trashed()),
                 ])
             ])
             ->bulkActions([
-                $helper->deleteBulkAction(),
-                $this->customBulkAction('restart', $helper, Status::pending->value, $restart)
+                $action->deleteBulkAction(),
+                $this->customBulkAction('restart', $action, Status::pending->value, $restart)
                     ->icon('heroicon-o-arrow-path')
                     ->color('success'),
-                $this->customBulkAction('cancel', $helper, Status::cancelled->value, [Status::pending->value])
+                $this->customBulkAction('cancel', $action, Status::cancelled->value, [Status::pending->value])
                     ->icon('heroicon-o-x-mark')
                     ->color('danger'),
             ]);
@@ -116,7 +117,7 @@ class ListSendingProcesses extends ListRecords
         return $infolist->schema(SendingProcessResourceInfo::info());
     }
 
-    public function customAction(string $name, FilamentTableHelper $helper, Status $status, array $statuses): Action
+    public function customAction(string $name, FilamentTableActionHelper $helper, Status $status, array $statuses): Action
     {
         return $helper->action("{$name}Action")
             ->label(__("common.$name"))
@@ -129,7 +130,7 @@ class ListSendingProcesses extends ListRecords
             });
     }
 
-    public function customBulkAction(string $name, FilamentTableHelper $helper, int $status, array $statuses): BulkAction
+    public function customBulkAction(string $name, FilamentTableActionHelper $helper, int $status, array $statuses): BulkAction
     {
         return $helper->bulkAction($name)
             ->label(__("common.$name"))

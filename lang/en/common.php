@@ -161,4 +161,5 @@ return [
     'all' => 'All',
     'author' => 'Author',
     'inactive' => 'Inactive',
+    'export_users' => 'Export users',
 ];

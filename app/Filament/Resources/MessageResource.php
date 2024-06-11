@@ -44,6 +44,7 @@ class MessageResource extends Resource
     public static function table(Table $table): Table
     {
         $helper = filamentTableHelper();
+        $action = filamentTableActionHelper();
 
         return $table
             ->modifyQueryUsing(fn(Builder $query) => $query->with(['user']))
@@ -65,14 +66,14 @@ class MessageResource extends Resource
                 $helper->trashedFilter(),
             ])
             ->actions([
-                $helper->editAction(),
-                $helper->deleteAction(),
-                $helper->restoreAction(),
-                $helper->forceDeleteAction(),
+                $action->editAction(),
+                $action->deleteAction(),
+                $action->restoreAction(),
+                $action->forceDeleteAction(),
             ])
             ->bulkActions([
-                $helper->deleteBulkAction(),
-                $helper->deleteBulkAction(),
+                $action->deleteBulkAction(),
+                $action->deleteBulkAction(),
             ]);
     }
 

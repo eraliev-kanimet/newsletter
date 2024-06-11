@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\Filament\FilamentTableActionHelper;
+use App\Helpers\Filament\FilamentActionHelper;
 use App\Helpers\Filament\FilamentFormHelper;
 use App\Helpers\Filament\FilamentInfoHelper;
 use App\Helpers\Filament\FilamentTableHelper;
@@ -17,4 +19,14 @@ function filamentTableHelper(): FilamentTableHelper
 function filamentInfoHelper(): FilamentInfoHelper
 {
     return new FilamentInfoHelper;
+}
+
+function filamentActionHelper(): FilamentActionHelper
+{
+    return new FilamentActionHelper;
+}
+
+function filamentTableActionHelper(): FilamentTableActionHelper
+{
+    return new FilamentTableActionHelper;
 }
