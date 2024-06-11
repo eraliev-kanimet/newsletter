@@ -134,6 +134,15 @@ class FilamentTableHelper
         }
     }
 
+    public function isActiveFilter(): TernaryFilter
+    {
+        return $this->ternaryFilter('is_active')
+            ->label(__('common.active'))
+            ->placeholder(__('common.all'))
+            ->trueLabel(__('common.active'))
+            ->falseLabel(__('common.inactive'));
+    }
+
     public function trashedFilter(): TernaryFilter
     {
         return $this->ternaryFilter('deleted_at')

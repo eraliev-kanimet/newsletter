@@ -27,6 +27,7 @@ class ReceiverResourceForm
                     }
                 ),
             $helper->keyValue('data')
+                ->hidden()
                 ->label(__('common.data')),
         ];
     }

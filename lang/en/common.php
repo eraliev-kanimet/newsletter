@@ -160,4 +160,5 @@ return [
     'edit_sending_process' => 'Edit Sending Process',
     'all' => 'All',
     'author' => 'Author',
+    'inactive' => 'Inactive',
 ];

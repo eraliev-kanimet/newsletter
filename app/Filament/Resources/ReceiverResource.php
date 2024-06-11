@@ -48,8 +48,10 @@ class ReceiverResource extends Resource
                     ->label(__('common.author')),
                 $helper->text('email')
                     ->width(220)
+                    ->searchable()
                     ->label(__('common.email')),
                 $helper->text('data')
+                    ->hidden()
                     ->label(__('common.data'))
                     ->formatStateUsing(function (Receiver $receiver) {
                         $text = '';
@@ -59,7 +61,17 @@ class ReceiverResource extends Resource
                         }
 
                         return trim($text, ', ');
-                    })
+                    }),
+                $helper->created()
+                    ->sortable(),
+                $helper->updated()
+                    ->sortable(),
+            ])
+            ->filters([
+                $helper->selectFilter('user')
+                    ->relationship('user', 'name')
+                    ->label(__('common.author')),
+                $helper->isActiveFilter(),
             ])
             ->actions([
                 $helper->editAction(),
