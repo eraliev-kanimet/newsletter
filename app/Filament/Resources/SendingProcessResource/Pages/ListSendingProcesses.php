@@ -39,7 +39,7 @@ class ListSendingProcesses extends ListRecords
             ->selectable()
             ->columns([
                 $helper->text('user.name')
-                    ->label(__('common.owner')),
+                    ->label(__('common.author')),
                 $helper->text('message.subject')
                     ->label(__('common.message')),
                 $helper->text('when')

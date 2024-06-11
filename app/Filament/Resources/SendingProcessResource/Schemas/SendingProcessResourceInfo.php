@@ -34,7 +34,7 @@ class SendingProcessResourceInfo
                 ->badge()
                 ->color('success'),
             $helper->textEntry('user.name')
-                ->label(__('common.owner'))
+                ->label(__('common.author'))
                 ->columnSpanFull(),
             $helper->textEntry('message.subject')
                 ->label(__('common.subject'))

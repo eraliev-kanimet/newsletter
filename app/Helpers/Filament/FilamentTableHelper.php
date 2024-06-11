@@ -2,6 +2,7 @@
 
 namespace App\Helpers\Filament;
 
+use Exception;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ActionGroup;
@@ -15,6 +16,9 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class FilamentTableHelper
@@ -32,6 +36,20 @@ class FilamentTableHelper
     public function toggle(string $column): ToggleColumn
     {
         return ToggleColumn::make($column);
+    }
+
+    public function created(): TextColumn
+    {
+        return $this->text('created_at')
+            ->label(__('common.created_at'))
+            ->alignCenter();
+    }
+
+    public function updated(): TextColumn
+    {
+        return $this->text('updated_at')
+            ->label(__('common.updated_at'))
+            ->alignCenter();
     }
 
     public function deleted(): TextColumn
@@ -96,5 +114,37 @@ class FilamentTableHelper
     public function deleteBulkAction(): DeleteBulkAction
     {
         return DeleteBulkAction::make();
+    }
+
+    public function selectFilter(string $name): SelectFilter
+    {
+        try {
+            return SelectFilter::make($name);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function ternaryFilter(string $name): TernaryFilter
+    {
+        try {
+            return TernaryFilter::make($name)->native(false);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function trashedFilter(): TernaryFilter
+    {
+        return $this->ternaryFilter('deleted_at')
+            ->label(__('common.deleted'))
+            ->placeholder(__('common.all'))
+            ->trueLabel(__('common.deleted'))
+            ->falseLabel(__('common.undeleted'))
+            ->queries(
+                true: fn(Builder $query) => $query->whereNotNull('deleted_at'),
+                false: fn(Builder $query) => $query->whereNull('deleted_at'),
+                blank: fn(Builder $query) => $query,
+            );
     }
 }

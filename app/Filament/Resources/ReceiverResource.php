@@ -45,7 +45,7 @@ class ReceiverResource extends Resource
                     ->boolean(),
                 $helper->text('user.name')
                     ->width(220)
-                    ->label(__('common.owner')),
+                    ->label(__('common.author')),
                 $helper->text('email')
                     ->width(220)
                     ->label(__('common.email')),

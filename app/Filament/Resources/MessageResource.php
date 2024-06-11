@@ -49,10 +49,21 @@ class MessageResource extends Resource
             ->columns([
                 $helper->text('user.name')
                     ->width(250)
-                    ->label(__('common.owner')),
+                    ->label(__('common.author')),
                 $helper->text('subject')
-                    ->label(__('common.subject')),
+                    ->label(__('common.subject'))
+                    ->searchable(),
                 $helper->deleted(),
+                $helper->created()
+                    ->sortable(),
+                $helper->updated()
+                    ->sortable(),
+            ])
+            ->filters([
+                $helper->selectFilter('user')
+                    ->relationship('user', 'name')
+                    ->label(__('common.author')),
+                $helper->trashedFilter(),
             ])
             ->actions([
                 $helper->editAction(),

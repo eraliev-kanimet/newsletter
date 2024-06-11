@@ -155,6 +155,9 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'deleted' => 'Deleted',
+    'undeleted' => 'Undeleted',
     'create_sending_process' => 'Create Sending Process',
     'edit_sending_process' => 'Edit Sending Process',
+    'all' => 'All',
+    'author' => 'Author',
 ];
