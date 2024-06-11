@@ -162,8 +162,9 @@ return [
     'author' => 'Автор',
     'inactive' => 'Не активный',
     'export_users' => 'Экспорт пользователей',
+    'import_users' => 'Импорт пользователей',
     '+users' => 'пользователей',
     'export_receivers' => 'Экспорт получателей',
-    'import_users' => 'Импорт получателей',
+    'import_receivers' => 'Импорт получателей',
     '+receivers' => 'получателей',
 ];

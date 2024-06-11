@@ -165,4 +165,5 @@ return [
     'import_users' => 'Import users',
     '+users' => 'users',
     'export_receivers' => 'Export receivers',
+    'import_receivers' => 'Import receivers',
 ];
