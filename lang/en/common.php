@@ -162,6 +162,7 @@ return [
     'author' => 'Author',
     'inactive' => 'Inactive',
     'export_users' => 'Export users',
+    'import_users' => 'Import users',
     '+users' => 'users',
     'export_receivers' => 'Export receivers',
 ];

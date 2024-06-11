@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Exports\UserExporter;
+use App\Filament\Imports\UserImporter;
 use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Table;
@@ -43,6 +44,9 @@ class ListUsers extends ListRecords
         $helper = filamentActionHelper();
 
         return [
+            $helper->importAction(UserImporter::class)
+                ->label(__('common.import_users'))
+                ->pluralModelLabel(__('common.+users')),
             $helper->exportAction(UserExporter::class)
                 ->label(__('common.export_users'))
                 ->pluralModelLabel(__('common.+users')),
