@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Filament\FilamentExportHelper;
 use App\Helpers\Filament\FilamentTableActionHelper;
 use App\Helpers\Filament\FilamentActionHelper;
 use App\Helpers\Filament\FilamentFormHelper;
@@ -29,4 +30,9 @@ function filamentActionHelper(): FilamentActionHelper
 function filamentTableActionHelper(): FilamentTableActionHelper
 {
     return new FilamentTableActionHelper;
+}
+
+function filamentExportHelper(): FilamentExportHelper
+{
+    return new FilamentExportHelper;
 }
