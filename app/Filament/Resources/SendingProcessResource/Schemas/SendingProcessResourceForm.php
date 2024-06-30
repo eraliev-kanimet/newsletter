@@ -30,7 +30,7 @@ class SendingProcessResourceForm
             $helper->dateTime('when')
                 ->disabled($isDisabled)
                 ->label(__('common.when'))
-                ->default(now()->addHour())
+                ->default(now()->addMinutes(30))
                 ->minDate(now()),
             $helper->checkbox('receivers')
                 ->disabled($isDisabled)

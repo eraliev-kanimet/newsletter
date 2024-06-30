@@ -13,23 +13,21 @@ class MessageResourceForm
         $text = $prefix . $text;
         $html = $prefix . $html;
 
+        $textarea = function (string $model, string $alterModel, string $label) use ($helper) {
+            return $helper->textarea($model)
+                ->label($label)
+                ->reactive()
+                ->rows(6)
+                ->notRegex('/.(<script|<style>).+/i')
+                ->required(fn (Get $get) => is_null($get($alterModel)) || $get($alterModel) === '');
+        };
+
         return [
             $helper->input($prefix . 'subject')
                 ->label(__('common.subject'))
                 ->required(),
-            $helper->textarea($text)
-                ->label(__('common.text'))
-                ->reactive()
-                ->rows(6)
-                ->required(function (Get $get) use ($html) {
-                    return is_null($get($html)) || $get($html) === '';
-                }),
-            $helper->richEditor($html)
-                ->label('HTML')
-                ->reactive()
-                ->required(function (Get $get) use ($text) {
-                    return is_null($get($text)) || $get($text) === '';
-                }),
+            $textarea($text, $html, __('common.text')),
+            $textarea($html, $text, 'HTML'),
         ];
     }
 }
