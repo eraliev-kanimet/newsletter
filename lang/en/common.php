@@ -123,4 +123,5 @@ return [
     'import_receivers' => 'Import receivers',
     'forgot_password' => 'Forgot Password',
     'registration' => 'Registration',
+    'login' => 'Login',
 ];

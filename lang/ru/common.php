@@ -124,4 +124,5 @@ return [
     '+receivers' => 'получателей',
     'forgot_password' => 'Забыли пароль',
     'registration' => 'Регистрация',
+    'login' => 'Вход в систему',
 ];
