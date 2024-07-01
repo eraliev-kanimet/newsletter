@@ -12,6 +12,13 @@ Route::controller(AuthController::class)
     ->name('auth.')
     ->middleware(['guest'])
     ->group(function () {
-        Route::get('/register', 'registerPage')->name('register.page');
-        Route::post('/register', 'registerAction')->name('register.action');
+        Route::prefix('register')->name('register.')->group(function () {
+            Route::get('', 'registerPage')->name('page');
+            Route::post('', 'registerAction')->name('action');
+        });
+
+        Route::prefix('login')->name('login.')->group(function () {
+            Route::get('', 'loginPage')->name('page');
+            Route::post('', 'loginAction')->name('action');
+        });
     });
