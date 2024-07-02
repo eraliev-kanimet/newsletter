@@ -126,7 +126,7 @@ return [
     'login' => 'Login',
     'submit' => 'Submit',
     'back' => 'Back',
-    'reset_password' => 'Reset Password',
+    'password_reset' => 'Password Reset',
     'click_here' => 'click here',
     'hello' => 'Hello',
 ];

@@ -7,12 +7,12 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 
-class ResetPasswordMail extends Mailable
+class PasswordResetMail extends Mailable
 {
     use Queueable;
 
     public function __construct(
-        public string $resetLink,
+        public string $link,
     )
     {
         //
@@ -21,16 +21,16 @@ class ResetPasswordMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('common.reset_password'),
+            subject: __('common.password_reset'),
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'mail.auth.reset-password',
+            view: 'mail.auth.password-reset',
             with: [
-                'resetLink' => $this->resetLink,
+                'link' => $this->link,
             ]
         );
     }

@@ -4,7 +4,7 @@ namespace App\Contracts;
 
 interface PasswordResetServiceInterface
 {
-    public function sendResetLink(string $email): void;
+    public function sendLink(string $email): void;
 
-    public function getResetLink(string $token): string;
+    public function getLink(string $token): string;
 }

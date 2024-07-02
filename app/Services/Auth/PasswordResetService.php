@@ -3,7 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Contracts\PasswordResetServiceInterface;
-use App\Mail\ResetPasswordMail;
+use App\Mail\PasswordResetMail;
 use App\Models\PasswordResetToken;
 use App\Models\User;
 use App\Services\Abstract\Service;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PasswordResetService extends Service implements PasswordResetServiceInterface
 {
-    public function sendResetLink(string $email): void
+    public function sendLink(string $email): void
     {
         if (User::whereEmail($email)->exists()) {
             $token = sha1($email);
@@ -23,14 +23,14 @@ class PasswordResetService extends Service implements PasswordResetServiceInterf
                 'token' => $token,
             ]);
 
-            $resetLink = $this->getResetLink($token);
+            $resetLink = $this->getLink($token);
 
-            Mail::to($email)->send(new ResetPasswordMail($resetLink));
+            Mail::to($email)->send(new PasswordResetMail($resetLink));
         }
     }
 
-    public function getResetLink(string $token): string
+    public function getLink(string $token): string
     {
-        return '/';
+        return route('auth.password-reset.page', ['token' => $token]);
     }
 }

@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    protected function redirectToHomePage()
+    {
+        return redirect()->route(config('routes.web.home'));
+    }
+
     public function registerPage()
     {
         return view('pages.register');
@@ -22,7 +27,7 @@ class AuthController extends Controller
 
         $service->login();
 
-        return redirect()->route(config('routes.web.home'));
+        return $this->redirectToHomePage();
     }
 
     public function loginPage()
@@ -52,8 +57,8 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        $service->sendResetLink($request->get('email'));
+        $service->sendLink($request->get('email'));
 
-        return $this->forgotPasswordPage()->with(['success' => true]);
+        return $this->redirectToHomePage();
     }
 }

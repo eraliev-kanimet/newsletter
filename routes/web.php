@@ -12,18 +12,16 @@ Route::controller(AuthController::class)
     ->name('auth.')
     ->middleware(['guest'])
     ->group(function () {
-        Route::prefix('register')->name('register.')->group(function () {
-            Route::get('', 'registerPage')->name('page');
-            Route::post('', 'registerAction')->name('action');
-        });
+        $routes = [
+            'register' => 'register',
+            'login' => 'login',
+            'forgot-password' => 'forgotPassword',
+        ];
 
-        Route::prefix('login')->name('login.')->group(function () {
-            Route::get('', 'loginPage')->name('page');
-            Route::post('', 'loginAction')->name('action');
-        });
-
-        Route::prefix('forgot-password')->name('forgot-password.')->group(function () {
-            Route::get('', 'forgotPasswordPage')->name('page');
-            Route::post('', 'forgotPasswordAction')->name('action');
-        });
+        foreach ($routes as $key => $value) {
+            Route::prefix($key)->name("$key.")->group(function () use ($value) {
+                Route::get('', "{$value}Page")->name('page');
+                Route::post('', "{$value}Action")->name('action');
+            });
+        }
     });
