@@ -124,4 +124,9 @@ return [
     'forgot_password' => 'Forgot Password',
     'registration' => 'Registration',
     'login' => 'Login',
+    'submit' => 'Submit',
+    'back' => 'Back',
+    'reset_password' => 'Reset Password',
+    'click_here' => 'click here',
+    'hello' => 'Hello',
 ];
