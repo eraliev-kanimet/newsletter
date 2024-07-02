@@ -6,13 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class PasswordResetToken extends Model
 {
+    protected $primaryKey = 'email';
+    public $incrementing = false;
+    public $timestamps = false;
+
     protected $fillable = [
         'email',
         'token',
         'created_at',
     ];
 
-    public $timestamps = false;
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+        ];
+    }
 
     protected static function boot(): void
     {
@@ -21,5 +30,10 @@ class PasswordResetToken extends Model
         self::saving(function (self $model) {
             $model->created_at = now();
         });
+    }
+
+    public function isExpired(int $minutes = 30): bool
+    {
+        return $this->created_at->addMinutes($minutes)->isPast();
     }
 }
