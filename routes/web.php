@@ -21,4 +21,9 @@ Route::controller(AuthController::class)
             Route::get('', 'loginPage')->name('page');
             Route::post('', 'loginAction')->name('action');
         });
+
+        Route::prefix('forgot-password')->name('forgot-password.')->group(function () {
+            Route::get('', 'forgotPasswordPage')->name('page');
+            Route::post('', 'forgotPasswordAction')->name('action');
+        });
     });
