@@ -128,5 +128,6 @@ return [
     'back' => 'Back',
     'password_reset' => 'Password Reset',
     'click_here' => 'click here',
+    'click_on_it' => 'click on it',
     'hello' => 'Hello',
 ];

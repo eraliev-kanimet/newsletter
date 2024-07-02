@@ -16,6 +16,7 @@ Route::controller(AuthController::class)
             'register' => 'register',
             'login' => 'login',
             'forgot-password' => 'forgotPassword',
+            'password-reset' => 'passwordReset',
         ];
 
         foreach ($routes as $key => $value) {
