@@ -11,10 +11,14 @@ class V1 extends Component
     public function __construct(
         public string $name,
         public string $label,
+        public string|int|float $value = '',
         public string $type = 'text',
+        public bool $disabled = false,
     )
     {
-        //
+        if ($type != 'password' && $value == '') {
+            $this->value = old($name, $value);
+        }
     }
 
     public function render(): View|Closure|string
