@@ -156,4 +156,5 @@ return [
 
     'attributes' => [],
 
+    'expired' => "This link will expire in :minutes minutes for your security. If you didn't request a password reset, please ignore this email.",
 ];

@@ -7,6 +7,7 @@ return [
         3 => 'We have sent a message to the specified email to finalize the registration process.',
         4 => 'The link expiration time is over. If you want to register, go to the appropriate page.',
         5 => ' to go to the registration page',
+        6 => "You have requested to create an account on :site. To continue, please,",
     ],
     'login' => [
         1 => "Don't have an account?",
@@ -19,7 +20,6 @@ return [
     ],
     'password_reset' => [
         1 => "You've requested to reset your password. To proceed, please",
-        2 => "This link will expire in 30 minutes for your security. If you didn't request a password reset, please ignore this email.",
-        3 => 'The link time has expired! If you want to get a new link, go to the corresponding page,',
+        2 => 'The link time has expired! If you want to get a new link, go to the corresponding page,',
     ],
 ];

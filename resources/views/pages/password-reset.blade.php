@@ -6,7 +6,7 @@
     >
         @if($resetToken->isExpired())
             <p class="mt-4 font-light text-center text-gray-400">
-                {{ __('pages.password_reset.3') }}
+                {{ __('pages.password_reset.2') }}
                 <a
                     href="{{ route('auth.forgot-password.page') }}"
                     class="font-medium text-gray-700 dark:text-gray-200 hover:underline"
