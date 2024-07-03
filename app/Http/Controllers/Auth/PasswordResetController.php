@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Contracts\PasswordResetServiceInterface;
+use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Exceptions\PasswordResetException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PasswordResetRequest;

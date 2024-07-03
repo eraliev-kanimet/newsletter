@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Contracts\Auth;
 
 use App\Exceptions\PasswordResetException;
 use App\Models\PasswordResetToken;

@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Contracts\PasswordResetServiceInterface;
+use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Exceptions\PasswordResetException;
 use App\Mail\PasswordResetMail;
 use App\Models\PasswordResetToken;
@@ -25,7 +25,7 @@ class PasswordResetService implements PasswordResetServiceInterface
     public function send(string $email): void
     {
         if (User::whereEmail($email)->exists()) {
-            $token = sha1($email);
+            $token = md5(uniqid(rand(), true));
 
             PasswordResetToken::updateOrCreate([
                 'email' => $email,
