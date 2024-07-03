@@ -3,12 +3,19 @@
 namespace App\Contracts;
 
 use App\Exceptions\PasswordResetException;
+use App\Models\PasswordResetToken;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface PasswordResetServiceInterface
 {
-    public function sendLink(string $email): void;
+    public function findByToken(string $token): ?PasswordResetToken;
 
-    public function getLink(string $token): string;
+    /**
+     * @throws ModelNotFoundException
+     */
+    public function findOrFailByToken(string $token): PasswordResetToken;
+
+    public function send(string $email): void;
 
     /**
      * @throws PasswordResetException

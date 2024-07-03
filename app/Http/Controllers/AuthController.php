@@ -7,7 +7,6 @@ use App\Exceptions\PasswordResetException;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\PasswordResetRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Models\PasswordResetToken;
 use App\Services\Models\User\UserModifyService;
 use App\Services\Models\User\UserService;
 use Illuminate\Http\Request;
@@ -65,16 +64,16 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        $service->sendLink($request->get('email'));
+        $service->send($request->get('email'));
 
         return $this->redirectToLoginPage();
     }
 
-    public function passwordResetPage(Request $request)
+    public function passwordResetPage(Request $request, PasswordResetServiceInterface $service)
     {
-        $resetToken = PasswordResetToken::whereToken($request->get('token'))->firstOrFail();
-
-        return view('pages.password-reset', compact('resetToken'));
+        return view('pages.password-reset', [
+            'resetToken' => $service->findOrFailByToken($request->get('token')),
+        ]);
     }
 
     public function passwordResetAction(PasswordResetRequest $request, PasswordResetServiceInterface $service)

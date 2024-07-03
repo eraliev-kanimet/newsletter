@@ -12,7 +12,17 @@ use Illuminate\Support\Facades\Mail;
 
 class PasswordResetService implements PasswordResetServiceInterface
 {
-    public function sendLink(string $email): void
+    public function findByToken(string $token): ?PasswordResetToken
+    {
+        return PasswordResetToken::whereToken($token)->first();
+    }
+
+    public function findOrFailByToken(string $token): PasswordResetToken
+    {
+        return PasswordResetToken::whereToken($token)->firstOrFail();
+    }
+
+    public function send(string $email): void
     {
         if (User::whereEmail($email)->exists()) {
             $token = sha1($email);
@@ -36,7 +46,7 @@ class PasswordResetService implements PasswordResetServiceInterface
 
     public function reset(string $token, string $password): void
     {
-        $resetToken = PasswordResetToken::whereToken($token)->first();
+        $resetToken = $this->findByToken($token);
 
         if (!$resetToken) {
             throw new PasswordResetException;
