@@ -9,11 +9,11 @@ use Illuminate\View\Component;
 class V1 extends Component
 {
     public function __construct(
-        public string $name,
-        public string $label,
+        public string           $name,
+        public string           $label,
         public string|int|float $value = '',
-        public string $type = 'text',
-        public bool $disabled = false,
+        public string           $type = 'text',
+        public bool             $disabled = false,
     )
     {
         if ($type != 'password' && $value == '') {

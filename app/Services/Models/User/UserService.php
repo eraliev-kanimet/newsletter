@@ -2,26 +2,30 @@
 
 namespace App\Services\Models\User;
 
+use App\Contracts\User\UserServiceInterface;
 use App\Models\User;
-use App\Services\Abstract\Service;
 use Illuminate\Support\Facades\Auth;
 
-class UserService extends Service
+class UserService implements UserServiceInterface
 {
-    public function __construct(
-        readonly public User $record
-    )
-    {}
+    protected User $record;
+
+    public function set(User $user): static
+    {
+        $this->record = $user;
+
+        return $this;
+    }
 
     public function login(): void
     {
         Auth::login($this->record);
     }
 
-    public static function attempt(array $data): static|false
+    public function attempt(array $data): static|false
     {
         if (Auth::attempt($data)) {
-            return new static(Auth::user());
+            return $this->set(Auth::user());
         }
 
         return false;
