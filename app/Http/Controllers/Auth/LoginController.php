@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Services\Models\User\UserService;
 
 class LoginController extends Controller
 {
@@ -13,9 +13,9 @@ class LoginController extends Controller
         return view('pages.login');
     }
 
-    public function action(LoginRequest $request)
+    public function action(LoginRequest $request, UserServiceInterface $service)
     {
-        if (UserService::attempt($request->validated())) {
+        if ($service->attempt($request->validated())) {
             return redirect()->route(config('routes.web.home'));
         }
 
