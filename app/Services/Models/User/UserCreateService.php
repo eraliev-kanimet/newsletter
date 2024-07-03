@@ -2,22 +2,29 @@
 
 namespace App\Services\Models\User;
 
+use App\Contracts\Mail\MailServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
 use App\Exceptions\UserCreationOrderException;
 use App\Mail\UserCreationOrderMail;
 use App\Models\TimeData;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserCreateService implements UserCreateServiceInterface
 {
     const CREATION_ORDER = 'USER_CREATION_ORDER';
 
+    public function __construct(
+        protected MailServiceInterface $mailService
+    )
+    {
+        //
+    }
+
     public function execute(array $data): UserServiceInterface
     {
-        $data['roles'] = [1];
+        $data['roles'] = [2];
 
         if (empty($data['password'])) {
             $data['password'] = Str::random(8);
@@ -42,7 +49,10 @@ class UserCreateService implements UserCreateServiceInterface
 
         $link = route('auth.register.action', ['token' => $token]);
 
-        Mail::to($data['email'])->send(new UserCreationOrderMail($link));
+        $this->mailService
+            ->to($data['email'])
+            ->setMailable(new UserCreationOrderMail($link))
+            ->send();
     }
 
     public function withOrder(string|int $id): void
