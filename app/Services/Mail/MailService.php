@@ -37,7 +37,12 @@ class MailService implements MailServiceInterface
         if (config('mail.enabled')) {
             $this->pendingMail->send($this->mailable);
         } else {
-            dd($this->mailable);
+            dump(
+                'THIS IS DONE TO DEBUG THE CODE! AFTER 10 SECONDS THE CODE WILL CONTINUE TO WORK!',
+                $this->mailable
+            );
+
+            sleep(10);
         }
     }
 }
