@@ -7,12 +7,18 @@ use App\Filament\Resources\ReceiverResource\ReceiverResourceForm;
 use App\Models\Receiver;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReceiverResource extends Resource
 {
     protected static ?string $model = Receiver::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-at-symbol';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return filamentRoleFiltering(parent::getEloquentQuery());
+    }
 
     public static function getNavigationLabel(): string
     {

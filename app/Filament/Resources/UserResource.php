@@ -7,6 +7,7 @@ use App\Models\User;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends Resource
 {
@@ -29,6 +30,11 @@ class UserResource extends Resource
     public static function getPluralLabel(): string
     {
         return __('common.users');
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->isRole();
     }
 
     public static function getPages(): array
