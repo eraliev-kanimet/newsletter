@@ -3,7 +3,10 @@
 return [
     'register' => [
         1 => 'Do you have an account?',
-        2 => 'Log in with it'
+        2 => 'Log in with it',
+        3 => 'We have sent a message to the specified email to finalize the registration process.',
+        4 => 'The link expiration time is over. If you want to register, go to the appropriate page.',
+        5 => ' to go to the registration page',
     ],
     'login' => [
         1 => "Don't have an account?",
