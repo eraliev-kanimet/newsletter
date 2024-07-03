@@ -12,6 +12,8 @@ Route::middleware('guest')->group(function () {
         ->name('register.')
         ->group(function () {
             Route::get('', 'page')->name('page');
+            Route::post('', 'order')->name('order');
+            Route::get('{token}', 'action')->name('action');
         });
 
     Route::controller(LoginController::class)
