@@ -3,15 +3,22 @@
 namespace App\Services\Auth;
 
 use App\Contracts\Auth\PasswordResetServiceInterface;
+use App\Contracts\Mail\MailServiceInterface;
 use App\Exceptions\PasswordResetException;
 use App\Mail\PasswordResetMail;
 use App\Models\PasswordResetToken;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 class PasswordResetService implements PasswordResetServiceInterface
 {
+    public function __construct(
+        protected MailServiceInterface $mailService
+    )
+    {
+        //
+    }
+
     public function findByToken(string $token): ?PasswordResetToken
     {
         return PasswordResetToken::whereToken($token)->first();
@@ -33,9 +40,12 @@ class PasswordResetService implements PasswordResetServiceInterface
                 'token' => $token,
             ]);
 
-            $resetLink = $this->getLink($token);
+            $link = $this->getLink($token);
 
-            Mail::to($email)->send(new PasswordResetMail($resetLink));
+            $this->mailService
+                ->to($email)
+                ->setMailable(new PasswordResetMail($link))
+                ->send();
         }
     }
 
