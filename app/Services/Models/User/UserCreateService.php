@@ -5,8 +5,10 @@ namespace App\Services\Models\User;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
 use App\Exceptions\UserCreationOrderException;
+use App\Mail\UserCreationOrderMail;
 use App\Models\TimeData;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserCreateService implements UserCreateServiceInterface
@@ -30,11 +32,17 @@ class UserCreateService implements UserCreateServiceInterface
 
     public function placeOrder(array $data): void
     {
+        $token = md5(uniqid(rand(), true));
+
         TimeData::create([
             'type' => self::CREATION_ORDER,
-            'token' => md5(uniqid(rand(), true)),
+            'token' => $token,
             'data' => $data,
         ]);
+
+        $link = route('auth.register.action', ['token' => $token]);
+
+        Mail::to($data['email'])->send(new UserCreationOrderMail($link));
     }
 
     public function withOrder(string|int $id): void
