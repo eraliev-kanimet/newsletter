@@ -2,6 +2,8 @@
 
 return [
 
+    'enabled' => env('MAIL_ENABLED', true),
+
     'default' => env('MAIL_MAILER', 'log'),
 
     'mailers' => [
