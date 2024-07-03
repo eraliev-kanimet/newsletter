@@ -8,6 +8,8 @@ use App\Helpers\Filament\FilamentFormHelper;
 use App\Helpers\Filament\FilamentInfoHelper;
 use App\Helpers\Filament\FilamentTableHelper;
 
+require_once 'queries.php';
+
 function filamentFormHelper(): FilamentFormHelper
 {
     return new FilamentFormHelper;
