@@ -18,9 +18,11 @@ class MessageResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->withoutGlobalScopes([
-            SoftDeletingScope::class,
-        ]);
+        return filamentRoleFiltering(
+            parent::getEloquentQuery()->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ])
+        );
     }
 
     public static function getNavigationLabel(): string

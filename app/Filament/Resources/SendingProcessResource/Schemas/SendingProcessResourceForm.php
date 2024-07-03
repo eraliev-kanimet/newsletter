@@ -7,14 +7,12 @@ use App\Models\Message;
 use App\Models\SendingProcess;
 use Filament\Forms\Get;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 
 class SendingProcessResourceForm
 {
     public static function form(): array
     {
         $helper = filamentFormHelper();
-        $userId = Auth::user()->id;
 
         $isDisabled = fn(?SendingProcess $record) => $record && $record->status != 0;
 
@@ -22,7 +20,7 @@ class SendingProcessResourceForm
             $helper->select('message_id')
                 ->reactive()
                 ->label(__('common.message'))
-                ->options(Message::whereUserId($userId)->pluck('subject', 'id'))
+                ->options(filamentRoleFiltering(Message::query())->pluck('subject', 'id'))
                 ->hidden(fn(?SendingProcess $record) => $record),
             $helper->grid(MessageResourceForm::form('text', 'html', 'message.'), 1)
                 ->disabled($isDisabled)
@@ -37,7 +35,7 @@ class SendingProcessResourceForm
                 ->label(__('common.receivers'))
                 ->relationship(
                     titleAttribute: 'email',
-                    modifyQueryUsing: fn(Builder $query) => $query->where('user_id', $userId)
+                    modifyQueryUsing: fn(Builder $query) => filamentRoleFiltering($query)
                 )
                 ->required()
                 ->searchable()
