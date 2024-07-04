@@ -18,6 +18,21 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $this->admin();
+
+        if (User::count() == 1) {
+            for ($i = 0; $i < 10; $i++) {
+                $email = fake()->unique()->email;
+
+                User::firstOrCreate([
+                    'email' => $email,
+                ], [
+                    'is_active' => rand(0, 1),
+                    'name' => fake()->name,
+                    'password' => $this->password,
+                    'roles' => [2],
+                ]);
+            }
+        }
     }
 
     protected function admin(): void
