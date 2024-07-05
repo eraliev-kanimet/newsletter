@@ -10,6 +10,11 @@ class UserService implements UserServiceInterface
 {
     protected User $record;
 
+    public function get(): User
+    {
+        return $this->record;
+    }
+
     public function set(User $user): static
     {
         $this->record = $user;
