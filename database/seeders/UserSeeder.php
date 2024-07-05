@@ -23,6 +23,10 @@ class UserSeeder extends Seeder
             for ($i = 0; $i < 10; $i++) {
                 $email = fake()->unique()->email;
 
+                if (rand(0, 1)) {
+                    sleep(1);
+                }
+
                 User::firstOrCreate([
                     'email' => $email,
                 ], [

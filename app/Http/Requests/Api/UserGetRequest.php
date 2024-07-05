@@ -9,9 +9,9 @@ class UserGetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'is_active' => ['nullable', 'boolean',],
-            'created_at' => ['nullable', 'boolean',],
-            'updated_at' => ['nullable', 'boolean',],
+            'is_active' => ['bail', 'nullable', 'boolean',],
+            'created_at' => ['bail', 'nullable', 'boolean',],
+            'updated_at' => ['bail', 'nullable', 'boolean',],
         ];
     }
 }
