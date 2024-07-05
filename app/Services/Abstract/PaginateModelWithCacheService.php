@@ -13,11 +13,6 @@ abstract class PaginateModelWithCacheService extends ModelWithCacheService
 
     protected array $integers = ['page', 'per_page'];
 
-    public function __construct(array $data)
-    {
-        $this->setParameters($data);
-    }
-
     protected function result(): AnonymousResourceCollection
     {
         if ($this->page) {
