@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Contracts\Mail\MailServiceInterface;
+use App\Contracts\User\UserUpdateServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
 use App\Contracts\Auth\PasswordResetServiceInterface;
 
 use App\Services\Auth\PasswordResetService;
 use App\Services\Mail\MailService;
+use App\Services\Models\User\UserUpdateService;
 use App\Services\Models\User\UserCreateService;
 use App\Services\Models\User\UserService;
 
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserCreateServiceInterface::class, UserCreateService::class);
+        $this->app->bind(UserUpdateServiceInterface::class, UserUpdateService::class);
 
         $this->app->bind(PasswordResetServiceInterface::class, PasswordResetService::class);
     }
