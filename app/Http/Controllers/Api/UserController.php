@@ -16,8 +16,16 @@ class UserController extends Controller
 
         return $service->get();
     }
+
     public function show(User $user)
     {
         return new UserResource($user);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        $this->apiRes(status: 204);
     }
 }
