@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "useDefineForClassFields": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "types": ["vite/client"],
+        "lib": ["esnext", "dom"]
+    },
+    "include": ["resources/app/**/*.ts", "resources/app/**/*.d.ts", "resources/app/**/*.tsx", "resources/app/**/*.vue"]
+}
