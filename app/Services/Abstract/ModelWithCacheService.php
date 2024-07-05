@@ -14,6 +14,7 @@ abstract class ModelWithCacheService extends Service
 
     protected array $booleans = [];
     protected array $integers = [];
+    protected array $sorts = [];
 
     abstract protected function query(): Builder;
 
@@ -40,10 +41,18 @@ abstract class ModelWithCacheService extends Service
         return $this->result();
     }
 
-    protected function setParameters(array $parameters): void
+    public function setParameters(array $parameters): void
     {
+        foreach ($this->sorts as $value) {
+            if (isset($parameters[$value]) && property_exists($this, $value)) {
+                $this->{$value} = $parameters[$value];
+            }
+        }
+
         foreach ($this->booleans as $value) {
-            $this->{$value} = isset($parameters[$value]) && $parameters[$value];
+            if (isset($parameters[$value]) && property_exists($this, $value)) {
+                $this->{$value} = $parameters[$value];
+            }
         }
 
         foreach ($this->integers as $value) {
