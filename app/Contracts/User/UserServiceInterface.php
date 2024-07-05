@@ -6,6 +6,8 @@ use App\Models\User;
 
 interface UserServiceInterface
 {
+    public function get(): User;
+
     public function set(User $user): static;
 
     public function login(): void;

@@ -24,7 +24,9 @@ class UserCreateService implements UserCreateServiceInterface
 
     public function execute(array $data): UserServiceInterface
     {
-        $data['roles'] = [2];
+        if (empty($data['roles'])) {
+            $data['roles'] = [2];
+        }
 
         if (empty($data['password'])) {
             $data['password'] = Str::random(8);
