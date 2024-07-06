@@ -22,7 +22,7 @@ class SendingProcessResourceForm
                 ->label(__('common.message'))
                 ->options(filamentRoleFiltering(Message::query())->pluck('subject', 'id'))
                 ->hidden(fn(?SendingProcess $record) => $record),
-            $helper->grid(MessageResourceForm::form('text', 'html', 'message.'), 1)
+            $helper->grid(MessageResourceForm::form(prefix: 'message.'), 1)
                 ->disabled($isDisabled)
                 ->hidden(fn(Get $get) => !is_null($get('message_id'))),
             $helper->dateTime('when')
