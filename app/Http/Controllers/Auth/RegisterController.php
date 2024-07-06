@@ -26,7 +26,7 @@ class RegisterController extends Controller
     public function action($token, UserCreateService $service)
     {
         try {
-            $service->withOrder($token);
+            $service->withOrder($token)->login();
         } catch (UserCreationOrderException) {
             return view('pages.expired.register');
         }

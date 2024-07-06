@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
+use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Contracts\Mail\MailServiceInterface;
-use App\Contracts\User\UserUpdateServiceInterface;
+use App\Contracts\User\ApiUserGetServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
-use App\Contracts\Auth\PasswordResetServiceInterface;
-
+use App\Contracts\User\UserUpdateServiceInterface;
 use App\Services\Auth\PasswordResetService;
 use App\Services\Mail\MailService;
-use App\Services\Models\User\UserUpdateService;
+use App\Services\Models\Api\User\UserGetService;
 use App\Services\Models\User\UserCreateService;
 use App\Services\Models\User\UserService;
-
+use App\Services\Models\User\UserUpdateService;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserCreateServiceInterface::class, UserCreateService::class);
         $this->app->bind(UserUpdateServiceInterface::class, UserUpdateService::class);
+
+        $this->app->bind(ApiUserGetServiceInterface::class, UserGetService::class);
 
         $this->app->bind(PasswordResetServiceInterface::class, PasswordResetService::class);
     }

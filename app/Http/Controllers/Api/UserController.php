@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\User\ApiUserGetServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserUpdateServiceInterface;
 use App\Http\Controllers\Controller;
@@ -10,11 +11,10 @@ use App\Http\Requests\Api\UserGetRequest;
 use App\Http\Requests\Api\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Services\Models\Api\User\UserGetService;
 
 class UserController extends Controller
 {
-    public function index(UserGetRequest $request, UserGetService $service)
+    public function index(UserGetRequest $request, ApiUserGetServiceInterface $service)
     {
         $service->setParameters($request->validated());
 
@@ -45,6 +45,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        $this->apiRes(status: 204);
+        return $this->apiRes(status: 204);
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Services\Abstract;
 
+use App\Contracts\Abstract\PaginateModelWithCacheServiceInterface;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-abstract class PaginateModelWithCacheService extends ModelWithCacheService
+abstract class PaginateModelWithCacheService extends ModelWithCacheService implements PaginateModelWithCacheServiceInterface
 {
     abstract protected function resource(mixed $result): AnonymousResourceCollection;
 

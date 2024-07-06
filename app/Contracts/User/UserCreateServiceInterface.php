@@ -13,5 +13,5 @@ interface UserCreateServiceInterface
     /**
      * @throws UserCreationOrderException
      */
-    public function withOrder(string|int $id): void;
+    public function withOrder(string|int $id): UserServiceInterface;
 }

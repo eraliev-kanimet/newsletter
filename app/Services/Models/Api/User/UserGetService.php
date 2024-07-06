@@ -2,13 +2,14 @@
 
 namespace App\Services\Models\Api\User;
 
+use App\Contracts\User\ApiUserGetServiceInterface;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\Abstract\PaginateModelWithCacheService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class UserGetService extends PaginateModelWithCacheService
+class UserGetService extends PaginateModelWithCacheService implements ApiUserGetServiceInterface
 {
     protected string $tag = 'api_users';
 

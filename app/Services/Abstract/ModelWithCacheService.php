@@ -2,11 +2,12 @@
 
 namespace App\Services\Abstract;
 
+use App\Contracts\Abstract\ModelWithCacheServiceInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 
-abstract class ModelWithCacheService extends Service
+abstract class ModelWithCacheService implements ModelWithCacheServiceInterface
 {
     protected int $minute = 360;
 
@@ -41,7 +42,7 @@ abstract class ModelWithCacheService extends Service
         return $this->result();
     }
 
-    public function setParameters(array $parameters): void
+    public function setParameters(array $parameters): static
     {
         foreach ($this->sorts as $value) {
             if (isset($parameters[$value]) && property_exists($this, $value)) {
@@ -60,5 +61,7 @@ abstract class ModelWithCacheService extends Service
                 $this->{$value} = (int)$parameters[$value];
             }
         }
+
+        return $this;
     }
 }

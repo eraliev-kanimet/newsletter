@@ -57,7 +57,7 @@ class UserCreateService implements UserCreateServiceInterface
             ->send();
     }
 
-    public function withOrder(string|int $id): void
+    public function withOrder(string|int $id): UserServiceInterface
     {
         $timeData = TimeData::whereType(self::CREATION_ORDER)->whereToken($id)->first();
 
@@ -73,8 +73,8 @@ class UserCreateService implements UserCreateServiceInterface
             throw new UserCreationOrderException;
         }
 
-        $this->execute($timeData->data)->login();
-
         $timeData->delete();
+
+        return $this->execute($timeData->data);
     }
 }
