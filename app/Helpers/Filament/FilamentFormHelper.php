@@ -12,7 +12,6 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TagsInput;
@@ -20,6 +19,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Collection;
+use Riodwanto\FilamentAceEditor\AceEditor;
 
 class FilamentFormHelper
 {
@@ -98,27 +98,12 @@ class FilamentFormHelper
         return Hidden::make($model);
     }
 
-    public function richEditor(string $model, bool $defaultButtons = true): RichEditor
+    public function aceEditor(string $model, string $mode = 'html'): AceEditor
     {
-        $field = RichEditor::make($model);
-
-        if ($defaultButtons) {
-            $field->toolbarButtons([
-                'blockquote',
-                'bold',
-                'bulletList',
-                'h3',
-                'italic',
-                'link',
-                'orderedList',
-                'redo',
-                'strike',
-                'underline',
-                'undo',
-            ]);
-        }
-
-        return $field;
+        return AceEditor::make($model)
+            ->mode($mode)
+            ->theme('github')
+            ->darkTheme('dracula');
     }
 
     public function keyValue(string $model): KeyValue
