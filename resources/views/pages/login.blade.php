@@ -4,7 +4,7 @@
     <x-wrapper.auth
         :title="__('common.login')"
     >
-        <form class="mt-6" method="post" action="{{ route('auth.login.action') }}">
+        <form class="mt-4" method="post" action="{{ route('auth.login.action') }}">
             @csrf
 
             <x-form.group.v1
@@ -32,7 +32,7 @@
             </div>
         </form>
 
-        <p class="mt-8 text-xs font-light text-center text-gray-400">
+        <p class="mt-7 text-xs font-light text-center text-gray-600 dark:text-gray-300">
             {{ __('pages.login.1') }}
             <a
                 href="{{ route('auth.register.page') }}"

@@ -35,6 +35,7 @@ class SendingProcessCommand extends Command
     public function get(): Collection
     {
         $query = SendingProcess::query()
+            ->with(['receivers'])
             ->whereStatus(SendingProcessStatus::pending->value)
             ->limit(50);
 
