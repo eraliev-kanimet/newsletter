@@ -13,7 +13,7 @@
                 >{{ __('common.click_on_it') }}.</a>
             </p>
         @else
-            <form class="mt-6" method="post" action="{{ route('auth.password-reset.action') }}">
+            <form class="mt-4" method="post" action="{{ route('auth.password-reset.action') }}">
                 @csrf
 
                 <input type="hidden" name="token" value="{{ $resetToken->token }}">

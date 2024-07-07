@@ -2,7 +2,7 @@
 
 @section('main')
     <x-wrapper.auth :title="__('common.registration')">
-        <p class="mt-4 font-light text-center text-gray-400">
+        <p class="mt-4 font-light text-center text-gray-600 dark:text-gray-300">
             {{ __('pages.register.3') }}
             <a
                 href="{{ route('auth.register.page') }}"

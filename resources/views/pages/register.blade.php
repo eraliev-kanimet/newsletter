@@ -3,9 +3,9 @@
 @section('main')
     <x-wrapper.auth :title="__('common.registration')">
         @if($success)
-            <p class="mt-4 font-light text-center text-gray-400">{{ __('pages.register.3') }}</p>
+            <p class="mt-4 font-light text-center text-gray-600 dark:text-gray-300">{{ __('pages.register.3') }}</p>
         @else
-            <form class="mt-6" method="post" action="{{ route('auth.register.order') }}">
+            <form class="mt-4" method="post" action="{{ route('auth.register.order') }}">
                 @csrf
 
                 <x-form.group.v1

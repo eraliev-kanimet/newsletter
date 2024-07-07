@@ -14,7 +14,7 @@
                 type="email"
             />
 
-            <p class="text-white text-center text-xs mt-4">
+            <p class="font-light text-gray-600 dark:text-gray-300 text-center text-xs mt-4">
                 {{ __('pages.forgot_password.2') }}
             </p>
 

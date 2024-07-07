@@ -9,7 +9,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/components/ui.css',
-                'resources/js/app.js',
+                'resources/js/app.ts',
                 'resources/app/main.ts'
             ],
             refresh: true,
