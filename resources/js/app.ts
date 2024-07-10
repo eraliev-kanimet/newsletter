@@ -1,9 +1,7 @@
 import Alpine from 'alpinejs'
 
-import {tailwindcssApplyTheme} from "./tailwindcss";
+import common from './store/common'
 
-document.addEventListener('DOMContentLoaded', () => {
-    tailwindcssApplyTheme()
-});
+Alpine.data('common', common)
 
 Alpine.start()

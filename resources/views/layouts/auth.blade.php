@@ -13,7 +13,8 @@
     <title>{{ $title ?? 'Newsletter' }}</title>
     @vite(['resources/js/app.ts', 'resources/css/app.css', 'resources/css/components/ui.css'])
 </head>
-<body>
+<body x-data="common">
+@include('components.layout.auth.header')
 <main class="min-h-screen">
     @yield('main')
 </main>
