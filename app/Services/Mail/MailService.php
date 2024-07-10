@@ -13,7 +13,7 @@ class MailService implements MailServiceInterface
 
     protected Mailable $mailable;
 
-    public function setPendingMail(PendingMail $pendingMail): static
+    protected function setPendingMail(PendingMail $pendingMail): static
     {
         $this->pendingMail = $pendingMail;
 
