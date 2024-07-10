@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Contracts\Mail\MailServiceInterface;
+use App\Contracts\SendingProcess\SendingProcessServiceInterface;
 use App\Contracts\User\ApiUserGetServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
@@ -11,6 +12,7 @@ use App\Contracts\User\UserUpdateServiceInterface;
 use App\Services\Auth\PasswordResetService;
 use App\Services\Mail\MailService;
 use App\Services\Models\Api\User\UserGetService;
+use App\Services\Models\SendingProcess\SendingProcessService;
 use App\Services\Models\User\UserCreateService;
 use App\Services\Models\User\UserService;
 use App\Services\Models\User\UserUpdateService;
@@ -29,11 +31,13 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ApiUserGetServiceInterface::class, UserGetService::class);
 
+        $this->app->bind(SendingProcessServiceInterface::class, SendingProcessService::class);
+
         $this->app->bind(PasswordResetServiceInterface::class, PasswordResetService::class);
     }
 
     public function boot(): void
     {
-        RedirectIfAuthenticated::redirectUsing(fn () => route(config('routes.web.home')));
+        RedirectIfAuthenticated::redirectUsing(fn() => route(config('routes.web.home')));
     }
 }

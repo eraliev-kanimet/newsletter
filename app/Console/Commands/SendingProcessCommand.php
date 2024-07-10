@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Contracts\SendingProcess\SendingProcessServiceInterface;
 use App\Enums\SendingProcessStatus;
-use App\Mail\SendingProcessMail;
 use App\Models\SendingProcess;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Mail;
 
 class SendingProcessCommand extends Command
 {
@@ -15,24 +14,18 @@ class SendingProcessCommand extends Command
 
     public function handle(): void
     {
+        $service = app(SendingProcessServiceInterface::class);
+
         foreach ($this->get() as $process) {
-            $mail = new SendingProcessMail(
-                $process->message['subject'],
-                $process->message['text'],
-                $process->message['html'],
-            );
+            $service->set($process);
 
-            foreach ($process->receivers as $receiver) {
-                Mail::to($receiver->email)->send($mail);
-            }
+            $service->sendToMail();
 
-            $process->update([
-                'status' => SendingProcessStatus::completed->value,
-            ]);
+            $service->completed();
         }
     }
 
-    public function get(): Collection
+    protected function get(): Collection
     {
         $query = SendingProcess::query()
             ->with(['receivers'])
