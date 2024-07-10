@@ -7,6 +7,7 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^4.2.3",
+        "alpinejs": "^3.14.1",
         "autoprefixer": "^10.4.19",
         "axios": "^1.6.0",
         "element-plus": "^2.7.6",
@@ -17,5 +18,8 @@
         "vite": "^5.0",
         "vue": "^3.3.4",
         "vue-tsc": "^1.6.5"
+    },
+    "devDependencies": {
+        "@types/alpinejs": "^3.13.10"
     }
 }
