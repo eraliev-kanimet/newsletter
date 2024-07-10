@@ -130,4 +130,7 @@ return [
     'click_here' => 'click here',
     'click_on_it' => 'click on it',
     'hello' => 'Hello',
+    'create_and_run_now' => 'Create and run now',
+    'run_now' => 'Run now',
+    'settings' => 'Settings',
 ];
