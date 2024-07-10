@@ -133,4 +133,5 @@ return [
     'create_and_run_now' => 'Create and run now',
     'run_now' => 'Run now',
     'settings' => 'Settings',
+    'month' => 'Month',
 ];
