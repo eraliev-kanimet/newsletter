@@ -3,37 +3,45 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+    protected Generator $faker;
+
     protected string $password;
 
     public function __construct()
     {
         $this->password = Hash::make('password');
+
+        $this->faker = Factory::create();
     }
 
     public function run(): void
     {
         $this->admin();
 
-        if (User::count() == 1) {
-            for ($i = 0; $i < 10; $i++) {
-                $email = fake()->unique()->email;
+        foreach (range(1, 12) as $month) {
+            $rand = rand(5, 10);
 
-                if (rand(0, 1)) {
-                    sleep(1);
-                }
+            for ($i = 0; $i < $rand; $i++) {
+                $email = $this->faker->unique()->email;
+
+                $at = now()->subMonths(12 - $month)->startOfMonth();
 
                 User::firstOrCreate([
                     'email' => $email,
                 ], [
                     'is_active' => rand(0, 1),
-                    'name' => fake()->name,
+                    'name' => $this->faker->name,
                     'password' => $this->password,
                     'roles' => [2],
+                    'created_at' => $at,
+                    'updated_at' => $at,
                 ]);
             }
         }
@@ -45,7 +53,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ], [
             'email' => 'admin@admin.com',
-            'name' => fake()->name,
+            'name' => $this->faker->name,
             'password' => $this->password,
             'roles' => [1],
         ]);
