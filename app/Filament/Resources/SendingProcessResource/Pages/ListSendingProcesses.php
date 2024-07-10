@@ -103,6 +103,7 @@ class ListSendingProcesses extends ListRecords
             ])
             ->bulkActions([
                 $action->deleteBulkAction(),
+                $action->forceDeleteBulkAction(),
                 $this->customBulkAction('restart', $action, Status::pending->value, $restart)
                     ->icon('heroicon-o-arrow-path')
                     ->color('success'),
