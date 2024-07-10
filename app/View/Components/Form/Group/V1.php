@@ -11,7 +11,7 @@ class V1 extends Component
     public function __construct(
         public string           $name,
         public string           $label,
-        public string|int|float $value = '',
+        public string|int|float|null $value = '',
         public string           $type = 'text',
         public bool             $disabled = false,
     )

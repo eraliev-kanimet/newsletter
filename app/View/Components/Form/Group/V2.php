@@ -13,7 +13,7 @@ class V2 extends Component
         public string           $label,
         public string           $url,
         public string           $urlLabel,
-        public string|int|float $value = '',
+        public string|int|float|null $value = '',
         public string           $type = 'text',
         public bool             $disabled = false,
     )
