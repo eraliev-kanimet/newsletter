@@ -11,3 +11,10 @@ function mb_ucfirst(string $text): string
 {
     return mb_strtoupper(mb_substr($text, 0, 1)) . mb_substr($text, 1);
 }
+
+function cal_days_in_current_month(): int
+{
+    $date = getdate();
+
+    return cal_days_in_month(CAL_GREGORIAN, $date['mon'], $date['year']);
+}
