@@ -2,12 +2,23 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\User;
+use App\Contracts\User\UserActivityChartServiceInterface;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserActivityChart extends ChartWidget
 {
+    public ?string $filter = 'today';
+
+    protected int|string|array $columnSpan = 2;
+
+    protected static ?string $maxHeight = '300px';
+
+    protected function getType(): string
+    {
+        return 'line';
+    }
+
     public function getHeading(): ?string
     {
         return __('admin.user_activity');
@@ -15,46 +26,43 @@ class UserActivityChart extends ChartWidget
 
     protected function getData(): array
     {
+        /** @var UserActivityChartServiceInterface $service */
+        $service = app(UserActivityChartServiceInterface::class);
+
+        $service->setFilter($this->filter);
+
         return [
             'datasets' => [
                 [
-                    'label' => __('common.month'),
-                    'data' => $this->getDataMonth(),
+                    'data' => $service->get(),
                 ],
             ],
-            'labels' => array_values(config('static.month.' . config('app.locale'))),
         ];
     }
 
-    public function getColumnSpan(): int|string|array
+    protected function getFilters(): ?array
     {
-        return 'full';
+        return [
+            'today' => __('common.today'),
+            'week' => __('common.last_week'),
+            'month' => __('common.last_month'),
+            'year' => __('common.this_year'),
+        ];
     }
 
-    protected function getType(): string
+    protected function getOptions(): array
     {
-        return 'line';
+        return [
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ],
+            ],
+        ];
     }
 
-    public function getMaxHeight(): ?string
+    public static function canView(): bool
     {
-        return '300px';
-    }
-
-    protected function getDataMonth(): array
-    {
-        $result = User::select(DB::raw('COUNT(*) as count, MONTH(created_at) as month'))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->pluck('count', 'month')
-            ->toArray();
-
-        $data = array_fill(1, 12, 0);
-
-        foreach ($result as $month => $count) {
-            $data[$month] = $count;
-        }
-
-        return array_values($data);
+        return Auth::user()->isRole();
     }
 }
