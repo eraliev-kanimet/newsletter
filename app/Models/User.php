@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Traits\Models\UserTrait;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasName
 {
     use Notifiable, UserTrait, SoftDeletes;
 
@@ -54,5 +55,10 @@ class User extends Authenticatable implements FilamentUser
                 $user->roles = convertArrayToIntegers($user->roles);
             }
         });
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->name ?? __('common.no_name');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Traits\Models;
 use App\Models\Message;
 use App\Models\Receiver;
 use App\Models\SendingProcess;
+use App\Models\SocialAccount;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait UserTrait
@@ -27,5 +28,10 @@ trait UserTrait
     public function sendingProcesses(): HasMany
     {
         return $this->hasMany(SendingProcess::class);
+    }
+
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
     }
 }
