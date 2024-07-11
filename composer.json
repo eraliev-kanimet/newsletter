@@ -10,9 +10,11 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",
         "laravel/pulse": "^1.2",
+        "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.9",
         "riodwanto/filament-ace-editor": "^1.1",
-        "saade/filament-laravel-log": "^3.0"
+        "saade/filament-laravel-log": "^3.0",
+        "ext-calendar": "*"
     },
     "require-dev": {
         "laravel/pint": "^1.13",
