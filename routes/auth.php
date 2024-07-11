@@ -46,7 +46,7 @@ Route::middleware('guest')->group(function () {
         ->name('socialite.')
         ->prefix('socialite')
         ->group(function () {
-            Route::get('{driver}', 'redirect')->name('redirect');
-            Route::get('{driver}/callback', 'callback')->name('callback');
+            Route::get('{provider}', 'redirect')->name('redirect');
+            Route::get('{provider}/callback', 'callback')->name('callback');
         });
 });
