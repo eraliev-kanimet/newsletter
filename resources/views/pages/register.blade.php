@@ -39,6 +39,8 @@
                 </div>
             </form>
 
+            @include('modules.auth.socialite', ['title' => 'pages.register.7', 'google' => 'pages.register.8'])
+
             <p class="mt-8 text-xs font-light text-center text-gray-400">
                 {{ __('pages.register.1') }}
                 <a
