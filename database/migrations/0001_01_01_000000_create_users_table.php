@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->boolean('is_active')->default(true);
             $table->string('uuid')->unique();
-            $table->string('email')->unique();
-            $table->string('name');
+            $table->string('email')->unique()->nullable();
+            $table->string('name')->nullable();
             $table->string('password');
             $table->string('roles');
             $table->softDeletes();
