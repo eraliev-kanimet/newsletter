@@ -134,4 +134,8 @@ return [
     'run_now' => 'Run now',
     'settings' => 'Settings',
     'month' => 'Month',
+    'today' => 'Today',
+    'last_week' => 'Last week',
+    'last_month' => 'Last month',
+    'this_year' => 'This year',
 ];
