@@ -7,6 +7,7 @@ use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
 use App\Exceptions\UserCreationOrderException;
 use App\Mail\UserCreationOrderMail;
+use App\Mail\WelcomeAndPasswordMail;
 use App\Models\TimeData;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -15,6 +16,8 @@ class UserCreateService implements UserCreateServiceInterface
 {
     const CREATION_ORDER = 'USER_CREATION_ORDER';
 
+    protected bool $password_is_system_generated = false;
+
     public function __construct(
         protected MailServiceInterface $mailService
     )
@@ -22,7 +25,7 @@ class UserCreateService implements UserCreateServiceInterface
         //
     }
 
-    public function execute(array $data): UserServiceInterface
+    protected function prepareData(array $data): array
     {
         if (empty($data['roles'])) {
             $data['roles'] = [2];
@@ -30,13 +33,34 @@ class UserCreateService implements UserCreateServiceInterface
 
         if (empty($data['password'])) {
             $data['password'] = Str::random(8);
+
+            $this->password_is_system_generated = true;
         }
 
-        $user = User::create($data);
+        return $data;
+    }
 
+    protected function userService(User $user): UserServiceInterface
+    {
         $service = new UserService();
 
         return $service->set($user);
+    }
+
+    public function execute(array $data): UserServiceInterface
+    {
+        $data = $this->prepareData($data);
+
+        $user = User::create($data);
+
+        if ($this->password_is_system_generated && $user->email) {
+            $this->mailService
+                ->to($user->email)
+                ->setMailable(new WelcomeAndPasswordMail($data['password']))
+                ->send();
+        }
+
+        return $this->userService($user);
     }
 
     public function placeOrder(array $data): void

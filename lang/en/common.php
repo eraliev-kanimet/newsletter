@@ -138,4 +138,5 @@ return [
     'last_week' => 'Last week',
     'last_month' => 'Last month',
     'this_year' => 'This year',
+    'no_name' => 'No name',
 ];
