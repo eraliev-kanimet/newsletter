@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\SendingProcessStatus;
 use App\Models\Message;
 use App\Models\Receiver;
 use App\Models\SendingProcess;
@@ -22,16 +21,8 @@ class SendingProcessSeeder extends Seeder
 
     protected function createAll(int $user_id): void
     {
-        $status = SendingProcessStatus::values();
-
-        unset($status[1]);
-
-        $status = array_values($status);
-
-        $count2 = count($status) - 1;
-
         for ($i = 0; $i < 20; $i++) {
-            $this->create($user_id, $status[rand(0, $count2)]);
+            $this->create($user_id, rand(2, 4));
         }
     }
 
