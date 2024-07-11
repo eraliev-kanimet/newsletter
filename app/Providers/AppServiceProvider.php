@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Contracts\Mail\MailServiceInterface;
 use App\Contracts\SendingProcess\SendingProcessServiceInterface;
+use App\Contracts\SocialAccount\SocialAccountServiceInterface;
 use App\Contracts\User\ApiUserGetServiceInterface;
 use App\Contracts\User\UserActivityChartServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
@@ -14,6 +15,7 @@ use App\Services\Auth\PasswordResetService;
 use App\Services\Mail\MailService;
 use App\Services\Models\Api\User\UserGetService;
 use App\Services\Models\SendingProcess\SendingProcessService;
+use App\Services\Models\SocialAccount\SocialAccountService;
 use App\Services\Models\User\UserActivityChartService;
 use App\Services\Models\User\UserCreateService;
 use App\Services\Models\User\UserService;
@@ -33,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserActivityChartServiceInterface::class, UserActivityChartService::class);
 
         $this->app->bind(ApiUserGetServiceInterface::class, UserGetService::class);
+
+        $this->app->bind(SocialAccountServiceInterface::class, SocialAccountService::class);
 
         $this->app->bind(SendingProcessServiceInterface::class, SendingProcessService::class);
 
