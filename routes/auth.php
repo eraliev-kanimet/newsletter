@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -38,5 +39,14 @@ Route::middleware('guest')->group(function () {
         ->group(function () {
             Route::get('', 'page')->name('page');
             Route::post('', 'action')->name('action');
+        });
+
+
+    Route::controller(SocialiteController::class)
+        ->name('socialite.')
+        ->prefix('socialite')
+        ->group(function () {
+            Route::get('{driver}', 'redirect')->name('redirect');
+            Route::get('{driver}/callback', 'callback')->name('callback');
         });
 });

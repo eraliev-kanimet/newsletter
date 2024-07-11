@@ -32,7 +32,9 @@
             </div>
         </form>
 
-        <p class="mt-7 text-xs font-light text-center text-gray-600 dark:text-gray-300">
+        @include('modules.auth.socialite', ['title' => 'pages.login.3', 'google' => 'pages.login.4'])
+
+        <p class="mt-6 text-xs font-light text-center text-gray-600 dark:text-gray-300">
             {{ __('pages.login.1') }}
             <a
                 href="{{ route('auth.register.page') }}"
