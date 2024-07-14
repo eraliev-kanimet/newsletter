@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contracts\User\ApiUserGetServiceInterface;
+use App\Contracts\User\ApiGetUserServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserUpdateServiceInterface;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index(UserGetRequest $request, ApiUserGetServiceInterface $service)
+    public function index(UserGetRequest $request, ApiGetUserServiceInterface $service)
     {
         $service->setParameters($request->validated());
 
@@ -38,7 +38,7 @@ class UserController extends Controller
         $service->set($user);
         $service->update($request->validated());
 
-        return new UserResource($service->get());
+        return $this->show($service->get());
     }
 
     public function destroy(User $user)
