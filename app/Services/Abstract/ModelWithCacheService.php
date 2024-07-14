@@ -64,4 +64,15 @@ abstract class ModelWithCacheService implements ModelWithCacheServiceInterface
 
         return $this;
     }
+
+    protected function sort(Builder $query): Builder
+    {
+        foreach ($this->sorts as $value) {
+            if (is_bool($this->{$value})) {
+                $query->orderBy($value, $this->{$value} ? 'desc' : 'asc');
+            }
+        }
+
+        return $query;
+    }
 }

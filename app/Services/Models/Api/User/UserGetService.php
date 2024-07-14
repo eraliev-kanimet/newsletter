@@ -29,14 +29,6 @@ class UserGetService extends PaginateModelWithCacheService implements ApiUserGet
             $query->whereIsActive($this->is_active);
         }
 
-        if (is_bool($this->created_at)) {
-            $query->orderBy('created_at', $this->created_at ? 'desc' : 'asc');
-        }
-
-        if (is_bool($this->updated_at)) {
-            $query->orderBy('updated_at', $this->updated_at ? 'desc' : 'asc');
-        }
-
         return $query;
     }
 

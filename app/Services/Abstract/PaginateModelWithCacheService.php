@@ -16,10 +16,12 @@ abstract class PaginateModelWithCacheService extends ModelWithCacheService imple
 
     protected function result(): AnonymousResourceCollection
     {
+        $query = $this->sort($this->query());
+
         if ($this->page) {
-            $result = $this->query()->paginate($this->per_page)->withQueryString();
+            $result = $query->paginate($this->per_page)->withQueryString();
         } else {
-            $result = $this->query()->limit($this->per_page)->get();
+            $result = $query->limit($this->per_page)->get();
         }
 
         return $this->resource($result);
