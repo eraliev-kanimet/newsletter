@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->integer('status')->default(0);
             $table->dateTime('when');
             $table->json('message');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -8,7 +8,6 @@ use App\Models\SendingProcess;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SendingProcessResource extends Resource
 {
@@ -18,11 +17,7 @@ class SendingProcessResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return filamentRoleFiltering(
-            parent::getEloquentQuery()->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ])
-        );
+        return filamentRoleFiltering(parent::getEloquentQuery());
     }
 
     public static function getNavigationLabel(): string

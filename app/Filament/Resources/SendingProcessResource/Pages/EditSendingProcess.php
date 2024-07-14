@@ -4,7 +4,6 @@ namespace App\Filament\Resources\SendingProcessResource\Pages;
 
 use App\Filament\Resources\SendingProcessResource;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
@@ -21,7 +20,6 @@ class EditSendingProcess extends EditRecord
     {
         return [
             DeleteAction::make(),
-            ForceDeleteAction::make(),
             RestoreAction::make(),
         ];
     }

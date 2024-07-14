@@ -69,7 +69,6 @@ class ListSendingProcesses extends ListRecords
                     ->alignCenter()
                     ->sortable()
                     ->label(__('common.receivers')),
-                $helper->deleted(),
                 $helper->created()
                     ->sortable(),
                 $helper->updated()
@@ -80,7 +79,6 @@ class ListSendingProcesses extends ListRecords
                     ->label(__('common.status'))
                     ->options(Status::options()),
                 $helper->authorSelectFilter('user'),
-                $helper->trashedFilter(),
             ])
             ->actions([
                 $action->editAction()
@@ -90,20 +88,18 @@ class ListSendingProcesses extends ListRecords
                 $action->actionGroup([
                     $action->deleteAction(),
                     $action->restoreAction(),
-                    $action->forceDeleteAction(),
                     $this->customAction('cancel', $action, Status::cancelled, [$pending])
                         ->color('danger')
                         ->icon('heroicon-o-x-mark')
-                        ->hidden(fn(SendingProcess $record) => $record->status != $pending || $record->trashed()),
+                        ->hidden(fn(SendingProcess $record) => $record->status != $pending),
                     $this->customAction('restart', $action, Status::pending, $restart)
                         ->color('success')
                         ->icon('heroicon-o-arrow-path')
-                        ->hidden(fn(SendingProcess $record) => !in_array($record->status, $restart) || $record->trashed()),
+                        ->hidden(fn(SendingProcess $record) => !in_array($record->status, $restart)),
                 ])
             ])
             ->bulkActions([
                 $action->deleteBulkAction(),
-                $action->forceDeleteBulkAction(),
                 $this->customBulkAction('restart', $action, Status::pending->value, $restart)
                     ->icon('heroicon-o-arrow-path')
                     ->color('success'),
