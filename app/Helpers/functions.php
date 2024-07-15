@@ -18,3 +18,12 @@ function cal_days_in_current_month(): int
 
     return cal_days_in_month(CAL_GREGORIAN, $date['mon'], $date['year']);
 }
+
+function cleanAndUniqueWords(string $str = ''): array
+{
+    if ($str == '') {
+        return [];
+    }
+
+    return array_unique(array_map('trim', explode(' ', $str)));
+}
