@@ -13,6 +13,7 @@ abstract class ModelWithCacheService implements ModelWithCacheServiceInterface
 
     protected string $tag;
 
+    protected array $variables = [];
     protected array $booleans = [];
     protected array $integers = [];
     protected array $sorts = [];
@@ -44,20 +45,14 @@ abstract class ModelWithCacheService implements ModelWithCacheServiceInterface
 
     public function setParameters(array $parameters): static
     {
-        foreach ($this->sorts as $value) {
-            if (isset($parameters[$value]) && property_exists($this, $value)) {
-                $this->{$value} = $parameters[$value];
-            }
-        }
-
-        foreach ($this->booleans as $value) {
+        foreach (array_merge($this->booleans, $this->sorts, $this->variables) as $value) {
             if (isset($parameters[$value]) && property_exists($this, $value)) {
                 $this->{$value} = $parameters[$value];
             }
         }
 
         foreach ($this->integers as $value) {
-            if (isset($parameters[$value])) {
+            if (isset($parameters[$value]) && property_exists($this, $value)) {
                 $this->{$value} = (int)$parameters[$value];
             }
         }
