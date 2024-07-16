@@ -9,6 +9,7 @@
         "fakerphp/faker": "^1.23",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
         "laravel/pulse": "^1.2",
         "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.9",
