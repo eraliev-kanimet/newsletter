@@ -3,6 +3,7 @@
 namespace App\Services\Models\User;
 
 use App\Contracts\Mail\MailServiceInterface;
+use App\Contracts\User\ApiUserServiceInterface;
 use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserServiceInterface;
 use App\Exceptions\UserCreationOrderException;
@@ -42,7 +43,7 @@ class UserCreateService implements UserCreateServiceInterface
 
     protected function userService(User $user): UserServiceInterface
     {
-        $service = new UserService();
+        $service = new UserService(app(ApiUserServiceInterface::class));
 
         return $service->set($user);
     }
@@ -63,7 +64,7 @@ class UserCreateService implements UserCreateServiceInterface
         return $this->userService($user);
     }
 
-    public function placeOrder(array $data): void
+    public function placeOrder(array $data, bool $api = false): void
     {
         $token = md5(uniqid(rand(), true));
 
@@ -73,7 +74,11 @@ class UserCreateService implements UserCreateServiceInterface
             'data' => $data,
         ]);
 
-        $link = route('auth.register.action', ['token' => $token]);
+        if ($api) {
+            $link = url('app/register?token=' . $token);
+        } else {
+            $link = route('auth.register.action', ['token' => $token]);
+        }
 
         $this->mailService
             ->to($data['email'])

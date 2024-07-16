@@ -8,7 +8,7 @@ interface UserCreateServiceInterface
 {
     public function execute(array $data): UserServiceInterface;
 
-    public function placeOrder(array $data): void;
+    public function placeOrder(array $data, bool $api = false): void;
 
     /**
      * @throws UserCreationOrderException
