@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Contracts\Mail\MailServiceInterface;
 use App\Contracts\Message\ApiGetMessageServiceInterface;
+use App\Contracts\Receiver\ApiGetReceiverServiceInterface;
 use App\Contracts\SendingProcess\SendingProcessServiceInterface;
 use App\Contracts\SocialAccount\SocialAccountServiceInterface;
 use App\Contracts\User\ApiGetUserServiceInterface;
@@ -15,6 +16,7 @@ use App\Contracts\User\UserUpdateServiceInterface;
 use App\Services\Auth\PasswordResetService;
 use App\Services\Mail\MailService;
 use App\Services\Models\Api\Message\GetMessageService;
+use App\Services\Models\Api\Receiver\GetReceiverService;
 use App\Services\Models\Api\User\GetUserService;
 use App\Services\Models\SendingProcess\SendingProcessService;
 use App\Services\Models\SocialAccount\SocialAccountService;
@@ -43,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SendingProcessServiceInterface::class, SendingProcessService::class);
 
         $this->app->bind(ApiGetMessageServiceInterface::class, GetMessageService::class);
+
+        $this->app->bind(ApiGetReceiverServiceInterface::class, GetReceiverService::class);
 
         $this->app->bind(PasswordResetServiceInterface::class, PasswordResetService::class);
     }
