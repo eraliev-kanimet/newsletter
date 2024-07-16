@@ -19,4 +19,6 @@ interface UserServiceInterface
      * @throws ModelNotFoundException
      */
     public function findAndSet(array $attributes): static;
+
+    public function api(): ApiUserServiceInterface;
 }

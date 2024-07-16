@@ -2,14 +2,21 @@
 
 namespace App\Services\Models\User;
 
+use App\Contracts\User\ApiUserServiceInterface;
 use App\Contracts\User\UserServiceInterface;
-use App\Models\SocialAccount;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class UserService implements UserServiceInterface
 {
+    public function __construct(
+        public readonly ApiUserServiceInterface $api
+    )
+    {
+        //
+    }
+
     protected User $record;
 
     public function get(): User
@@ -20,6 +27,8 @@ class UserService implements UserServiceInterface
     public function set(User $user): static
     {
         $this->record = $user;
+
+        $this->api->set($user);
 
         return $this;
     }
@@ -53,5 +62,10 @@ class UserService implements UserServiceInterface
         }
 
         throw new ModelNotFoundException;
+    }
+
+    public function api(): ApiUserServiceInterface
+    {
+        return $this->api;
     }
 }
