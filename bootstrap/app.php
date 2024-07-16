@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('api')->prefix('api')->name('api.')->group(function () {
                 require_once base_path('routes/api/index.php');
 
-                Route::name('auth.')->group(base_path('routes/api/auth.php'));
+                Route::prefix('auth')->name('auth.')->group(base_path('routes/api/auth.php'));
             });
         },
         commands: __DIR__ . '/../routes/console.php',
