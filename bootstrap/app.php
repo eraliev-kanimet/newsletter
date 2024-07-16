@@ -8,13 +8,21 @@ $middlewares = require __DIR__ . '/../bootstrap/middlewares.php';
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__ . '/../routes/web.php',
-        api: __DIR__ . '/../routes/api.php',
+        using: function () {
+            Route::middleware('web')->group(function () {
+                require_once base_path('routes/web.php');
+
+                Route::name('auth.')->group(base_path('routes/auth.php'));
+            });
+
+            Route::middleware('api')->prefix('api')->name('api.')->group(function () {
+                require_once base_path('routes/api/index.php');
+
+                Route::name('auth.')->group(base_path('routes/api/auth.php'));
+            });
+        },
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
-        then: function () {
-            Route::middleware('web')->name('auth.')->group(base_path('routes/auth.php'));
-        },
     )
     ->withMiddleware($middlewares)
     ->withExceptions(function (Exceptions $exceptions) {
