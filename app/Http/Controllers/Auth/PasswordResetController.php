@@ -23,7 +23,7 @@ class PasswordResetController extends Controller
             $service->reset(
                 $request->get('token'),
                 $request->get('password')
-            );
+            )->login();
         } catch (PasswordResetException) {
             return redirect()->route('auth.login.page');
         }

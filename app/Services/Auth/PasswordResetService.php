@@ -4,11 +4,11 @@ namespace App\Services\Auth;
 
 use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Contracts\Mail\MailServiceInterface;
+use App\Contracts\User\UserServiceInterface;
 use App\Exceptions\PasswordResetException;
 use App\Mail\PasswordResetMail;
 use App\Models\PasswordResetToken;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class PasswordResetService implements PasswordResetServiceInterface
 {
@@ -29,7 +29,7 @@ class PasswordResetService implements PasswordResetServiceInterface
         return PasswordResetToken::whereToken($token)->firstOrFail();
     }
 
-    public function send(string $email): void
+    public function send(string $email, bool $api = false): void
     {
         if (User::whereEmail($email)->exists()) {
             $token = md5(uniqid(rand(), true));
@@ -40,7 +40,11 @@ class PasswordResetService implements PasswordResetServiceInterface
                 'token' => $token,
             ]);
 
-            $link = $this->getLink($token);
+            if ($api) {
+                $link = url('app/password-reset?token=' . $token);
+            } else {
+                $link = route('auth.password-reset.page', ['token' => $token]);
+            }
 
             $this->mailService
                 ->to($email)
@@ -49,12 +53,7 @@ class PasswordResetService implements PasswordResetServiceInterface
         }
     }
 
-    public function getLink(string $token): string
-    {
-        return route('auth.password-reset.page', ['token' => $token]);
-    }
-
-    public function reset(string $token, string $password): void
+    public function reset(string $token, string $password): UserServiceInterface
     {
         $resetToken = $this->findByToken($token);
 
@@ -76,8 +75,11 @@ class PasswordResetService implements PasswordResetServiceInterface
             'password' => $password,
         ]);
 
-        Auth::login($user);
-
         $resetToken->delete();
+
+        /** @var UserServiceInterface $service */
+        $service = app(UserServiceInterface::class);
+
+        return $service->set($user);
     }
 }
