@@ -2,9 +2,9 @@
 
 namespace App\Contracts\User;
 
-interface UserActivityChartServiceInterface
-{
-    public function setFilter(string $filter): static;
+use App\Contracts\Abstract\ActivityChartInterface;
 
-    public function get(): array;
+interface UserActivityChartServiceInterface extends ActivityChartInterface
+{
+
 }
