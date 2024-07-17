@@ -6,6 +6,7 @@ use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Contracts\Mail\MailServiceInterface;
 use App\Contracts\Message\ApiGetMessageServiceInterface;
 use App\Contracts\Receiver\ApiGetReceiverServiceInterface;
+use App\Contracts\SendingProcess\SendingProcessActivityChartInterface;
 use App\Contracts\SendingProcess\SendingProcessServiceInterface;
 use App\Contracts\SocialAccount\SocialAccountServiceInterface;
 use App\Contracts\User\ApiGetUserServiceInterface;
@@ -20,6 +21,7 @@ use App\Services\Models\Api\Message\GetMessageService;
 use App\Services\Models\Api\Receiver\GetReceiverService;
 use App\Services\Models\Api\User\ApiUserService;
 use App\Services\Models\Api\User\GetUserService;
+use App\Services\Models\SendingProcess\SendingProcessActivityChartService;
 use App\Services\Models\SendingProcess\SendingProcessService;
 use App\Services\Models\SocialAccount\SocialAccountService;
 use App\Services\Models\User\UserActivityChartService;
@@ -46,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SocialAccountServiceInterface::class, SocialAccountService::class);
 
         $this->app->bind(SendingProcessServiceInterface::class, SendingProcessService::class);
+        $this->app->bind(SendingProcessActivityChartInterface::class, SendingProcessActivityChartService::class);
 
         $this->app->bind(ApiGetMessageServiceInterface::class, GetMessageService::class);
 

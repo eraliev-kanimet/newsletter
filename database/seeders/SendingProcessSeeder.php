@@ -21,12 +21,22 @@ class SendingProcessSeeder extends Seeder
 
     protected function createAll(int $user_id): void
     {
-        for ($i = 0; $i < 20; $i++) {
-            $this->create($user_id, rand(2, 4));
+        foreach (range(1, 6) as $month) {
+            $rand = rand(8, 15);
+
+            for ($i = 0; $i < $rand; $i++) {
+                $this->create($user_id, rand(2, 4), now()->subMonths(6 - $month)->addDays(rand(1, 20)));
+            }
+        }
+
+        $rand = rand(5, 10);
+
+        for ($i = 0; $i < $rand; $i++) {
+            $this->create($user_id, rand(2, 4), now());
         }
     }
 
-    protected function create(int $user_id, int $status): void
+    protected function create(int $user_id, int $status, mixed $at): void
     {
         $message = Message::inRandomOrder()->limit(1)->first();
 
@@ -38,7 +48,9 @@ class SendingProcessSeeder extends Seeder
                 'html' => $message->data['html'] ?? '',
             ],
             'status' => $status,
-            'when' => now()->minute(rand(120, 300))
+            'when' => now()->minute(rand(120, 300)),
+            'updated_at' => $at,
+            'created_at' => $at,
         ]);
 
         $receivers = Receiver::inRandomOrder()->limit(rand(10, 20))->get();
