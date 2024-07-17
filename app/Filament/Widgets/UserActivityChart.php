@@ -3,14 +3,14 @@
 namespace App\Filament\Widgets;
 
 use App\Contracts\User\UserActivityChartServiceInterface;
+use App\Filament\Traits\ChartWidgetTrait;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Facades\Auth;
 
 class UserActivityChart extends ChartWidget
 {
-    public ?string $filter = 'today';
+    use ChartWidgetTrait;
 
-    protected int|string|array $columnSpan = 2;
+    public ?string $filter = 'year';
 
     protected static ?string $maxHeight = '300px';
 
@@ -38,31 +38,5 @@ class UserActivityChart extends ChartWidget
                 ],
             ],
         ];
-    }
-
-    protected function getFilters(): ?array
-    {
-        return [
-            'today' => __('common.today'),
-            'week' => __('common.last_week'),
-            'month' => __('common.last_month'),
-            'year' => __('common.this_year'),
-        ];
-    }
-
-    protected function getOptions(): array
-    {
-        return [
-            'plugins' => [
-                'legend' => [
-                    'display' => false,
-                ],
-            ],
-        ];
-    }
-
-    public static function canView(): bool
-    {
-        return Auth::user()->isRole();
     }
 }
