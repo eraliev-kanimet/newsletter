@@ -15,17 +15,9 @@ class MessageResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $user = $this->resource->user;
-
         return [
             'id' => $this->resource->id,
-            'user' => [
-                'id' => $user->id,
-                'is_active' => (bool)$user->is_active,
-                'uuid' => $user->uuid,
-                'email' => $user->email,
-                'name' => $user->name,
-            ],
+            'user' => resource_user($this->resource->user),
             'subject' => $this->resource->subject,
             'text' => $this->resource->data['text'] ?? null,
             'html' => $this->resource->data['html'] ?? null,

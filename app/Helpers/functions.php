@@ -1,7 +1,8 @@
 <?php
 
 require_once 'Filament/functions.php';
-require_once 'errors.php';
+require_once 'Functions/errors.php';
+require_once 'Functions/resources.php';
 
 function convertArrayToIntegers($array): array
 {

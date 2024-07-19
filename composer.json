@@ -32,7 +32,7 @@
         },
         "files": [
             "app/Helpers/functions.php",
-            "app/Helpers/fake.php"
+            "app/Helpers/Fake/fake.php"
         ]
     },
     "autoload-dev": {

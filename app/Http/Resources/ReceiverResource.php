@@ -15,18 +15,10 @@ class ReceiverResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $user = $this->resource->user;
-
         return [
             'id' => $this->resource->id,
             'is_active' => $this->resource->is_active,
-            'user' => [
-                'id' => $user->id,
-                'is_active' => (bool)$user->is_active,
-                'uuid' => $user->uuid,
-                'email' => $user->email,
-                'name' => $user->name,
-            ],
+            'user' => resource_user($this->resource->user),
             'email' => $this->resource->email,
         ];
     }
