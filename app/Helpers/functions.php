@@ -27,5 +27,9 @@ function cleanAndUniqueWords(string $str = ''): array
         return [];
     }
 
-    return array_unique(array_map('trim', explode(' ', $str)));
+    $words = preg_split('/\P{L}+/u', $str, -1, PREG_SPLIT_NO_EMPTY);
+
+    $filteredWords = array_filter($words, fn($word) => mb_strlen($word) > 2);
+
+    return array_unique($filteredWords);
 }

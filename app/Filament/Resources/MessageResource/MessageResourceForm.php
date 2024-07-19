@@ -14,7 +14,7 @@ class MessageResourceForm
         $html = $prefix . $html;
 
         return [
-            $helper->input($prefix . 'subject')
+            $helper->input($prefix == 'data.' ? 'subject' : $prefix . 'subject')
                 ->label(__('common.subject'))
                 ->required(),
             $helper->textarea($text)
