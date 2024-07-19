@@ -6,16 +6,12 @@ use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Exceptions\PasswordResetException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PasswordResetRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\EmailRequest;
 
 class PasswordController extends Controller
 {
-    public function forgot(Request $request, PasswordResetServiceInterface $service)
+    public function forgot(EmailRequest $request, PasswordResetServiceInterface $service)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
-
         $service->send($request->get('email'), true);
 
         return $this->apiRes();

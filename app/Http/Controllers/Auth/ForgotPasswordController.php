@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Auth\PasswordResetServiceInterface;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\EmailRequest;
 
 class ForgotPasswordController extends Controller
 {
@@ -13,12 +13,8 @@ class ForgotPasswordController extends Controller
         return view('pages.forgot-password');
     }
 
-    public function action(Request $request, PasswordResetServiceInterface $service)
+    public function action(EmailRequest $request, PasswordResetServiceInterface $service)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
-
         $service->send($request->get('email'));
 
         return redirect()->route('auth.login.page');
