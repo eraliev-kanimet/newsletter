@@ -9,30 +9,18 @@ abstract class PaginateModelWithCacheService extends ModelWithCacheService imple
 {
     abstract protected function resource(mixed $result): AnonymousResourceCollection;
 
-    protected int $page = 0;
-    protected int $per_page = 15;
-
     protected array $integers = ['page', 'per_page'];
 
     protected function result(): AnonymousResourceCollection
     {
         $query = $this->sort($this->query());
 
-        if ($this->page) {
-            $result = $query->paginate($this->per_page)->withQueryString();
+        if ($this->hasInteger('page')) {
+            $result = $query->paginate($this->integer('per_page', 15))->withQueryString();
         } else {
-            $result = $query->limit($this->per_page)->get();
+            $result = $query->limit($this->integer('per_page', 15))->get();
         }
 
         return $this->resource($result);
-    }
-
-    protected function generateCacheKey(): string
-    {
-        return sprintf(
-            $this->tag . '_%s_%s',
-            $this->page,
-            $this->per_page,
-        );
     }
 }

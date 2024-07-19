@@ -16,16 +16,12 @@ class GetUserService extends PaginateModelWithCacheService implements ApiGetUser
     protected array $booleans = ['is_active'];
     protected array $sorts = ['created_at', 'updated_at'];
 
-    protected ?bool $is_active = null;
-    protected ?bool $created_at = null;
-    protected ?bool $updated_at = null;
-
     protected function query(): Builder
     {
         $query = User::query();
 
-        if (is_bool($this->is_active)) {
-            $query->whereIsActive($this->is_active);
+        if ($this->hasBoolean('is_active')) {
+            $query->whereIsActive($this->boolean('is_active'));
         }
 
         return $query;
@@ -34,17 +30,5 @@ class GetUserService extends PaginateModelWithCacheService implements ApiGetUser
     protected function resource(mixed $result): AnonymousResourceCollection
     {
         return UserResource::collection($result);
-    }
-
-    protected function generateCacheKey(): string
-    {
-        return sprintf(
-            $this->tag . '_%s_%s_%s_%s_%s',
-            $this->page,
-            $this->per_page,
-            $this->is_active,
-            $this->created_at,
-            $this->updated_at,
-        );
     }
 }
