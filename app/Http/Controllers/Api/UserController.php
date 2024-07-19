@@ -7,14 +7,14 @@ use App\Contracts\User\UserCreateServiceInterface;
 use App\Contracts\User\UserUpdateServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\UserCreateRequest;
-use App\Http\Requests\Api\User\UserGetRequest;
+use App\Http\Requests\Api\User\UserIndexRequest;
 use App\Http\Requests\Api\User\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index(UserGetRequest $request, ApiGetUserServiceInterface $service)
+    public function index(UserIndexRequest $request, ApiGetUserServiceInterface $service)
     {
         $service->setParameters($request->validated());
 
