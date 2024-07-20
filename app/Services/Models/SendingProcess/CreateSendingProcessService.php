@@ -8,7 +8,7 @@ use App\Models\SendingProcess;
 
 class CreateSendingProcessService implements CreateSendingProcessServiceInterface
 {
-    public function create(array $data, bool $run_now = false): SendingProcessServiceInterface
+    public function execute(array $data, bool $run_now = false): SendingProcessServiceInterface
     {
         if ($run_now) {
             $data['when'] = now();

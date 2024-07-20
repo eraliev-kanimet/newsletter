@@ -4,5 +4,5 @@ namespace App\Contracts\SendingProcess;
 
 interface CreateSendingProcessServiceInterface
 {
-    public function create(array $data, bool $run_now = false): SendingProcessServiceInterface;
+    public function execute(array $data, bool $run_now = false): SendingProcessServiceInterface;
 }

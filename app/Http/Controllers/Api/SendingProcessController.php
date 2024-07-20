@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Contracts\SendingProcess\ApiGetSendingProcessServiceInterface;
+use App\Contracts\SendingProcess\CreateSendingProcessServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\SendingProcess\SendingProcessIndexRequest;
+use App\Http\Requests\Api\SendingProcess\SendingProcessStoreRequest;
 use App\Http\Resources\SendingProcessResource;
 use App\Models\SendingProcess;
 
@@ -20,6 +22,16 @@ class SendingProcessController extends Controller
     public function show(SendingProcess $sendingProcess)
     {
         return new SendingProcessResource($sendingProcess);
+    }
+
+    public function store(SendingProcessStoreRequest $request, CreateSendingProcessServiceInterface $service)
+    {
+        $service = $service->execute(
+            $request->validated(),
+            $request->boolean('run_now')
+        );
+
+        return $this->show($service->get());
     }
 
     public function destroy(SendingProcess $sendingProcess)
