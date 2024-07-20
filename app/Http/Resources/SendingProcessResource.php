@@ -23,6 +23,8 @@ class SendingProcessResource extends JsonResource
             'status_text' => SendingProcessStatus::from($this->resource->status)->t(),
             'when' => $this->resource->when,
             'message' => $this->resource->message,
+            'created_at' => $this->resource->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->resource->updated_at,
         ];
     }
 }

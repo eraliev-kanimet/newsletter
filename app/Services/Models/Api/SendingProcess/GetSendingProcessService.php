@@ -13,17 +13,18 @@ class GetSendingProcessService extends PaginateModelWithCacheService implements 
 {
     protected string $tag = 'api_sending_process';
 
-    protected array $variables = ['users'];
+    protected array $variables = ['users', 'status'];
+
     protected array $sorts = ['created_at', 'updated_at'];
 
     protected function query(): Builder
     {
         $query = SendingProcess::query();
 
-        if ($this->hasVariable('users')) {
-            $users = convertArrayToIntegers($this->variable('users'));
-
-            $query->whereIn('user_id', $users);
+        foreach (['user_id' => 'users', 'status' => 'status'] as $column => $value) {
+            if ($this->hasVariable($value)) {
+                $query->whereIn($column, convertArrayToIntegers($this->variable($value)));
+            }
         }
 
         return $query;
