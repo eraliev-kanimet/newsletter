@@ -8,12 +8,14 @@ class UserIndexRequest extends FormRequest
 {
     public function rules(): array
     {
+        $rules = request_index_rules();
+
+        unset($rules['users']);
+        unset($rules['users.*']);
+
         return [
-            'page' => ['bail', 'nullable', 'integer', 'min:1'],
-            'per_page' => ['bail', 'nullable', 'integer', 'min:1', 'max:50'],
+            ...$rules,
             'is_active' => ['bail', 'nullable', 'boolean',],
-            'created_at' => ['bail', 'nullable', 'boolean',],
-            'updated_at' => ['bail', 'nullable', 'boolean',],
         ];
     }
 }
