@@ -24,7 +24,7 @@ class SendingProcessResource extends JsonResource
             'when' => $this->resource->when,
             'message' => $this->resource->message,
             'created_at' => $this->resource->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->resource->updated_at,
+            'updated_at' => $this->resource->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }
