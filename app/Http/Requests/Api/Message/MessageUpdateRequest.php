@@ -11,9 +11,9 @@ class MessageUpdateRequest extends FormRequest
         return [
             'user_id' => ['bail', 'nullable', 'exists:users,id'],
             'subject' => ['bail', 'nullable', 'string'],
-            'data' => ['bail', 'nullable', 'array'],
-            'data.text' => ['bail', 'required', 'string'],
-            'data.html' => ['bail', 'required', 'string'],
+            'data' => ['bail', 'array'],
+            'data.text' => ['bail', $this->has('data') ? 'required' : 'nullable', 'string'],
+            'data.html' => ['bail', $this->has('data') ? 'required' : 'nullable', 'string'],
         ];
     }
 }
