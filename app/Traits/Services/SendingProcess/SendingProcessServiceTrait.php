@@ -2,29 +2,22 @@
 
 namespace App\Traits\Services\SendingProcess;
 
-use App\Contracts\Mail\MailServiceInterface;
-use App\Mail\BaseMail;
 use App\Models\SendingProcess;
 
 /**
  * @property SendingProcess $process
- * @property MailServiceInterface $mailService
  */
 trait SendingProcessServiceTrait
 {
-    protected function receivers(): array
+    public function get(): SendingProcess
     {
-        return $this->process->receivers->pluck('email')->toArray();
+        return $this->process;
     }
 
-    public function createMail(): MailServiceInterface
+    public function set(SendingProcess $process): static
     {
-        $message = $this->process->message;
+        $this->process = $process;
 
-        $mailable = new BaseMail($message['subject'], $message['text'], $message['html']);
-
-        return $this->mailService
-            ->to($this->receivers())
-            ->setMailable($mailable);
+        return $this;
     }
 }

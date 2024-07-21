@@ -10,6 +10,7 @@ use App\Contracts\SendingProcess\ApiGetSendingProcessServiceInterface;
 use App\Contracts\SendingProcess\CreateSendingProcessServiceInterface;
 use App\Contracts\SendingProcess\SendingProcessActivityChartInterface;
 use App\Contracts\SendingProcess\SendingProcessServiceInterface;
+use App\Contracts\SendingProcess\UpdateSendingProcessServiceInterface;
 use App\Contracts\SocialAccount\SocialAccountServiceInterface;
 use App\Contracts\User\ApiGetUserServiceInterface;
 use App\Contracts\User\ApiUserServiceInterface;
@@ -27,6 +28,7 @@ use App\Services\Models\Api\User\GetUserService;
 use App\Services\Models\SendingProcess\CreateSendingProcessService;
 use App\Services\Models\SendingProcess\SendingProcessActivityChartService;
 use App\Services\Models\SendingProcess\SendingProcessService;
+use App\Services\Models\SendingProcess\UpdateSendingProcessService;
 use App\Services\Models\SocialAccount\SocialAccountService;
 use App\Services\Models\User\UserActivityChartService;
 use App\Services\Models\User\UserCreateService;
@@ -53,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(SendingProcessServiceInterface::class, SendingProcessService::class);
         $this->app->bind(CreateSendingProcessServiceInterface::class, CreateSendingProcessService::class);
+        $this->app->bind(UpdateSendingProcessServiceInterface::class, UpdateSendingProcessService::class);
         $this->app->bind(SendingProcessActivityChartInterface::class, SendingProcessActivityChartService::class);
 
         $this->app->bind(ApiGetSendingProcessServiceInterface::class, GetSendingProcessService::class);

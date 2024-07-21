@@ -6,6 +6,7 @@ namespace App\Services\Models\SendingProcess;
 use App\Contracts\Mail\MailServiceInterface;
 use App\Contracts\SendingProcess\SendingProcessServiceInterface;
 use App\Enums\SendingProcessStatus;
+use App\Mail\BaseMail;
 use App\Models\SendingProcess;
 use App\Traits\Services\SendingProcess\SendingProcessServiceTrait;
 
@@ -22,18 +23,6 @@ class SendingProcessService implements SendingProcessServiceInterface
 
     protected SendingProcess $process;
 
-    public function get(): SendingProcess
-    {
-        return $this->process;
-    }
-
-    public function set(SendingProcess $process): static
-    {
-        $this->process = $process;
-
-        return $this;
-    }
-
     public function sendToMail(): static
     {
         $this->createMail()->send();
@@ -48,5 +37,16 @@ class SendingProcessService implements SendingProcessServiceInterface
         ]);
 
         return $this;
+    }
+
+    protected function createMail(): MailServiceInterface
+    {
+        $message = $this->process->message;
+
+        $mailable = new BaseMail($message['subject'], $message['text'], $message['html']);
+
+        return $this->mailService
+            ->to($this->process->receivers()->pluck('email')->toArray())
+            ->setMailable($mailable);
     }
 }
