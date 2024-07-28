@@ -11,7 +11,8 @@ class ReceiverStoreRequest extends FormRequest
         return [
             'is_active' => ['bail', 'nullable', 'boolean'],
             'user_id' => ['bail', 'required', 'integer', 'exists:users,id'],
-            'email' => ['bail', 'required', 'email',],
+            'data' => ['bail', 'required', 'array',],
+            'data.email' => ['bail', 'required', 'email',],
         ];
     }
 }

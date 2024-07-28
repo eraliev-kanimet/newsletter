@@ -19,7 +19,7 @@ class ReceiverResource extends JsonResource
             'id' => $this->resource->id,
             'is_active' => $this->resource->is_active,
             'user' => resource_user($this->resource->user),
-            'email' => $this->resource->email,
+            'data' => $this->resource->data,
             'created_at' => $this->resource->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->resource->updated_at->format('Y-m-d H:i:s'),
         ];

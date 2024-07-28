@@ -11,7 +11,8 @@ class ReceiverUpdateRequest extends FormRequest
         return [
             'is_active' => ['bail', 'nullable', 'boolean'],
             'user_id' => ['bail', 'nullable', 'integer', 'exists:users,id'],
-            'email' => ['bail', 'nullable', 'email',],
+            'data' => ['bail', 'array',],
+            'data.email' => ['bail', 'nullable', 'email',],
         ];
     }
 }
