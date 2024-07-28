@@ -25,7 +25,20 @@ class SendingProcessService implements SendingProcessServiceInterface
 
     public function sendToMail(): static
     {
-        $this->createMail()->send();
+        $message = $this->process->message;
+
+        $receivers = $this->process
+            ->receivers()
+            ->whereIsActive(true)
+            ->whereNotNull('data->email')
+            ->get();
+
+        foreach ($receivers as $receiver) {
+            $this->mailService
+                ->to($receiver->data['email'])
+                ->setMailable($this->createMessage($message, $receiver->data))
+                ->send();
+        }
 
         return $this;
     }
@@ -39,14 +52,28 @@ class SendingProcessService implements SendingProcessServiceInterface
         return $this;
     }
 
-    protected function createMail(): MailServiceInterface
+    protected function createMessage(array $data, array $receiver): BaseMail
     {
-        $message = $this->process->message;
+        $message = [
+            'subject' => $data['subject'],
+            'text' => $data['text'],
+            'html' => $data['html'],
+        ];
 
-        $mailable = new BaseMail($message['subject'], $message['text'], $message['html']);
+        $placeholders = [];
 
-        return $this->mailService
-            ->to($this->process->receivers()->pluck('email')->toArray())
-            ->setMailable($mailable);
+        foreach ($receiver as $key => $value) {
+            $placeholders['{{' . $key . '}}'] = $value;
+        }
+
+        foreach ($message as $key => $value) {
+            $message[$key] = preg_replace_callback(
+                '/{{([a-z_]+)}}/i',
+                fn($matches) => $placeholders[$matches[0]] ?? $matches[0],
+                $value
+            );
+        }
+
+        return new BaseMail($message['subject'], $message['text'], $message['html']);
     }
 }
