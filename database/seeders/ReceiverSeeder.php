@@ -16,8 +16,8 @@ class ReceiverSeeder extends Seeder
             for ($i = 0; $i < 21; $i++) {
                 Receiver::create([
                     'user_id' => $user->id,
-                    'email' => fake()->email,
                     'data' => [
+                        'email' => fake()->email,
                         'name' => fake()->name,
                     ],
                 ]);

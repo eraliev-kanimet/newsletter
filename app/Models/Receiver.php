@@ -11,7 +11,6 @@ class Receiver extends Model
     protected $fillable = [
         'is_active',
         'user_id',
-        'email',
         'data',
     ];
 
