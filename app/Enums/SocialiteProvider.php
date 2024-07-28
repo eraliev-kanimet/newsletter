@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use App\Models\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 enum SocialiteProvider: int
@@ -29,5 +30,19 @@ enum SocialiteProvider: int
         }
 
         return $keys;
+    }
+
+    public static function dataForAdmin(User $user): array
+    {
+        $array = [
+            'github' => false,
+            'google' => false,
+        ];
+
+        foreach ($user->socialAccounts->pluck('provider') as $provider) {
+            $array[self::from($provider)->name] = true;
+        }
+
+        return $array;
     }
 }

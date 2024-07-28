@@ -2,12 +2,18 @@
 
 namespace App\Helpers\Filament;
 
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\ImportAction;
 
 class FilamentActionHelper
 {
+    public function action(string $name): Action
+    {
+        return Action::make($name);
+    }
+
     public function createAction(): CreateAction
     {
         return CreateAction::make();
