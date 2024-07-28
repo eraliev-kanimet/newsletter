@@ -139,4 +139,5 @@ return [
     'last_month' => 'Last month',
     'this_year' => 'This year',
     'no_name' => 'No name',
+    'social_accounts' => 'Social accounts',
 ];

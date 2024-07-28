@@ -140,4 +140,5 @@ return [
     'last_month' => 'Последний месяц',
     'this_year' => 'Этот год',
     'no_name' => 'Без имени',
+    'social_accounts' => 'Социальные сети',
 ];
