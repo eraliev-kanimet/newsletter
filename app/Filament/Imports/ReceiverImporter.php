@@ -22,18 +22,27 @@ class ReceiverImporter extends BaseImporter
                 ->label(__('common.email'))
                 ->requiredMapping()
                 ->rules(['required', 'email']),
+            $helper->column('name')
+                ->label(__('common.name'))
+                ->requiredMapping()
+                ->rules(['required', 'email']),
         ];
     }
 
-    public function resolveRecord(): ?Receiver
+    public function resolveRecord(): Receiver
     {
-        $data = [
-            'user_id' => $this->getImport()->user_id,
-            'email' => $this->data['email'],
-        ];
+        $receiver = Receiver::whereNotNull('data->email')
+            ->where('data->email', $this->data['email'] ?? '')
+            ->whereUserId($this->getImport()->user_id)
+            ->first();
 
-        return Receiver::firstOrNew($data, $data + [
-                'is_active' => $this->data['is_active'],
-            ]);
+        return $receiver ?: Receiver::create([
+            'user_id' => $this->getImport()->user_id,
+            'data' => [
+                'email' => $this->data['email'] ?? '',
+                'name' => $this->data['name'] ?? '',
+            ],
+            'is_active' => $this->data['is_active'],
+        ]);
     }
 }

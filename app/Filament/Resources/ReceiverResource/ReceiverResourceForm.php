@@ -16,19 +16,19 @@ class ReceiverResourceForm
             $helper->toggle('is_active')
                 ->label(__('common.active'))
                 ->default(true),
-            $helper->input('email')
+            $helper->input('data.name')
+                ->label(__('common.name')),
+            $helper->input('data.email')
+                ->required()
                 ->label(__('common.email'))
                 ->email()
-                ->required()
                 ->unique(
+                    column: 'data->email',
                     ignorable: fn(?Model $record): ?Model => $record,
                     modifyRuleUsing: function (Unique $rule) {
                         return $rule->where('user_id', Auth::user()->id);
                     }
                 ),
-            $helper->keyValue('data')
-                ->hidden()
-                ->label(__('common.data')),
         ];
     }
 

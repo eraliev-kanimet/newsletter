@@ -45,12 +45,7 @@ class ListReceivers extends ListRecords
                 $helper->text('user.name')
                     ->width(220)
                     ->label(__('common.author')),
-                $helper->text('email')
-                    ->width(220)
-                    ->searchable()
-                    ->label(__('common.email')),
                 $helper->text('data')
-                    ->hidden()
                     ->label(__('common.data'))
                     ->formatStateUsing(function (Receiver $receiver) {
                         $text = '';

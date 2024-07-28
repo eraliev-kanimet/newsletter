@@ -4,9 +4,9 @@ namespace App\Filament\Resources\SendingProcessResource\Schemas;
 
 use App\Filament\Resources\MessageResource\MessageResourceForm;
 use App\Models\Message;
+use App\Models\Receiver;
 use App\Models\SendingProcess;
 use Filament\Forms\Get;
-use Illuminate\Database\Eloquent\Builder;
 
 class SendingProcessResourceForm
 {
@@ -41,12 +41,10 @@ class SendingProcessResourceForm
                         ->default(now()->addMinutes(30))
                         ->minDate(now()),
                     $helper->checkbox('receivers')
+                        ->relationship('receivers')
                         ->disabled($isDisabled)
                         ->label(__('common.receivers'))
-                        ->relationship(
-                            titleAttribute: 'email',
-                            modifyQueryUsing: fn(Builder $query) => filamentRoleFiltering($query)
-                        )
+                        ->options(self::receivers())
                         ->required()
                         ->searchable()
                         ->bulkToggleable()
@@ -54,5 +52,14 @@ class SendingProcessResourceForm
                 ]),
             ]),
         ];
+    }
+
+    protected static function receivers(): array
+    {
+        return filamentRoleFiltering(Receiver::query())
+            ->whereNotNull('data->email')
+            ->get()
+            ->pluck('data.email', 'id')
+            ->toArray();
     }
 }

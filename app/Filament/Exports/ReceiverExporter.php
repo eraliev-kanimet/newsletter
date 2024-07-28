@@ -17,7 +17,9 @@ class ReceiverExporter extends BaseExporter
                 ->label(__('common.active')),
             $helper->column('user.name')
                 ->label(__('common.author')),
-            $helper->column('email')
+            $helper->column('data.name')
+                ->label(__('common.name')),
+            $helper->column('data.email')
                 ->label(__('common.email')),
             $helper->column('created_at')
                 ->label(__('common.created_at')),
