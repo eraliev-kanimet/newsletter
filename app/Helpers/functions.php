@@ -34,3 +34,8 @@ function cleanAndUniqueWords(string $str = ''): array
 
     return array_unique($filteredWords);
 }
+
+function array_filter_on_null(array $array): array
+{
+    return array_filter($array, fn($value) => $value != null);
+}

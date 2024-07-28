@@ -2,6 +2,7 @@
 
 use App\Helpers\Filament\FilamentExportHelper;
 use App\Helpers\Filament\FilamentImportHelper;
+use App\Helpers\Filament\FilamentNotificationHelper;
 use App\Helpers\Filament\FilamentTableActionHelper;
 use App\Helpers\Filament\FilamentActionHelper;
 use App\Helpers\Filament\FilamentFormHelper;
@@ -43,4 +44,9 @@ function filamentExportHelper(): FilamentExportHelper
 function filamentImportHelper(): FilamentImportHelper
 {
     return new FilamentImportHelper;
+}
+
+function filamentNotificationHelper(): FilamentNotificationHelper
+{
+    return new FilamentNotificationHelper;
 }
